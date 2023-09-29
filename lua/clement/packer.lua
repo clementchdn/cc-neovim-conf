@@ -7,7 +7,7 @@ return require('packer').startup(function(use)
   -- Packer can manage itself
   use 'wbthomason/packer.nvim'
 
-  use 'navarasu/onedark.nvim'
+  use 'olimorris/onedarkpro.nvim'
 
   use {
     'nvim-telescope/telescope.nvim', tag = '0.1.2',
@@ -27,7 +27,7 @@ return require('packer').startup(function(use)
     branch = 'v1.x',
     requires = {
       -- LSP Support
-      { 'neovim/nvim-lspconfig' },
+      { 'neovim/nvim-lspconfig',            opts = { format = { timeout_ms = 3000 } } },
       { 'williamboman/mason.nvim' },
       { 'williamboman/mason-lspconfig.nvim' },
 
@@ -53,10 +53,40 @@ return require('packer').startup(function(use)
   }
 
   use('eandrju/cellular-automaton.nvim')
+
+  use({
+    "kylechui/nvim-surround",
+    tag = "*", -- Use for stability; omit to use `main` branch for the latest features
+    config = function()
+      require("nvim-surround").setup({
+        -- Configuration here, or leave empty to use defaults
+      })
+    end
+  })
+
+  use({
+    "iamcco/markdown-preview.nvim",
+    run = "cd app && npm install",
+    setup = function() vim.g.mkdp_filetypes = { "markdown" } end,
+    ft = { "markdown" },
+  })
+
   --[[use {
         'nvim-tree/nvim-tree.lua',
         requires = {
             'nvim-tree/nvim-web-devicons', -- optional
         },
     }--]]
+  -- nvim-dap for debuggging
+  use 'mfussenegger/nvim-dap'
+  use 'mfussenegger/nvim-dap-python'
+  use { "rcarriga/nvim-dap-ui", requires = { "mfussenegger/nvim-dap" } }
+
+  use({
+    "kdheepak/lazygit.nvim",
+    -- optional for floating window border decoration
+    requires = {
+      "nvim-lua/plenary.nvim",
+    },
+  })
 end)

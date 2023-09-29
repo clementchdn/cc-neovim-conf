@@ -1,11 +1,10 @@
 # default options
 vim.opt.guicursor = "n-v-c:block-Cursor/lCursor"
 vim.opt.guicursor = vim.opt.guicursor + "ve:ver35-Cursor"
-vim.opt.guicursor =	vim.opt.guicursor + "o:hor50-Cursor"
-vim.opt.guicursor = vim.opt.guicursor +	"i-ci:ver25-Cursor/lCursor"
+vim.opt.guicursor = vim.opt.guicursor + "o:hor50-Cursor"
+vim.opt.guicursor = vim.opt.guicursor + "i-ci:ver25-Cursor/lCursor"
 vim.opt.guicursor = vim.opt.guicursor + "r-cr:hor20-Cursor/lCursor"
 vim.opt.guicursor = vim.opt.guicursor + "sm:block-Cursor"
-
 vim.opt.nu = true
 vim.opt.relativenumber = true
 
@@ -35,5 +34,11 @@ vim.opt.isfname:append("@-@")
 vim.opt.updatetime = 50
 
 vim.opt.colorcolumn = "120"
+
+-- fold
+vim.opt.foldmethod = "expr"
+
+vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
+vim.opt.foldenable = false
 
 vim.g.mapleader = " "
