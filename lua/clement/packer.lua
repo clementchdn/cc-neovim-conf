@@ -21,6 +21,9 @@ return require('packer').startup(function(use)
   use('theprimeagen/harpoon')
   use('mbbill/undotree')
   use('tpope/vim-fugitive')
+  use { 'akinsho/git-conflict.nvim', tag = "*", config = function()
+    require('git-conflict').setup()
+  end }
 
   use {
     'VonHeikemen/lsp-zero.nvim',
@@ -89,4 +92,43 @@ return require('packer').startup(function(use)
       "nvim-lua/plenary.nvim",
     },
   })
+
+  use {
+    'cameron-wags/rainbow_csv.nvim',
+    config = function()
+      require 'rainbow_csv'.setup()
+    end,
+    -- optional lazy-loading below
+    module = {
+      'rainbow_csv',
+      'rainbow_csv.fns'
+    },
+    ft = {
+      'csv',
+      'tsv',
+      'csv_semicolon',
+      'csv_whitespace',
+      'csv_pipe',
+      'rfc_csv',
+      'rfc_semicolon'
+    }
+  }
+
+  -- used to format code with prettier, black, etc
+  use {
+    "stevearc/conform.nvim",
+    config = function()
+      require("conform").setup()
+    end,
+  }
+
+  -- color picker
+  use {
+    "max397574/colortils.nvim",
+    cmd = "Colortils",
+    config = function()
+      require("colortils").setup()
+    end,
+  }
+  use { "NvChad/nvim-colorizer.lua" }
 end)
