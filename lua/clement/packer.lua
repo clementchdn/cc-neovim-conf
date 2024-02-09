@@ -8,9 +8,10 @@ return require('packer').startup(function(use)
   use 'wbthomason/packer.nvim'
 
   use 'olimorris/onedarkpro.nvim'
+  use { "catppuccin/nvim", as = "catppuccin" }
 
   use {
-    'nvim-telescope/telescope.nvim', tag = '0.1.2',
+    'nvim-telescope/telescope.nvim',
     -- or                            , branch = '0.1.x',
     requires = { { 'nvim-lua/plenary.nvim' } }
   }
@@ -131,4 +132,21 @@ return require('packer').startup(function(use)
     end,
   }
   use { "NvChad/nvim-colorizer.lua" }
+
+  -- UI
+  use {
+    'nvim-lualine/lualine.nvim',
+    requires = { 'nvim-tree/nvim-web-devicons', opt = true }
+  }
+
+  -- use {
+  --   'nvimdev/dashboard-nvim',
+  --   event = 'VimEnter',
+  --   config = function()
+  --     require('dashboard').setup {
+  --       -- config
+  --     }
+  --   end,
+  --   requires = { 'nvim-tree/nvim-web-devicons' }
+  -- }
 end)
