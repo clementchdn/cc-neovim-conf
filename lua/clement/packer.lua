@@ -10,6 +10,8 @@ return require('packer').startup(function(use)
   use 'olimorris/onedarkpro.nvim'
   use { "catppuccin/nvim", as = "catppuccin" }
 
+  use 'xiyaowong/transparent.nvim'
+
   use {
     'nvim-telescope/telescope.nvim',
     -- or                            , branch = '0.1.x',
