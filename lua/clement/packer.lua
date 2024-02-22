@@ -7,6 +7,15 @@ return require('packer').startup(function(use)
   -- Packer can manage itself
   use 'wbthomason/packer.nvim'
 
+  require("packer").startup(function()
+    use({
+      "stevearc/oil.nvim",
+      config = function()
+        require("oil").setup()
+      end,
+    })
+  end)
+
   use {
     "folke/noice.nvim",
     requires = { {
@@ -165,4 +174,8 @@ return require('packer').startup(function(use)
   -- }
 
   use 'christoomey/vim-tmux-navigator'
+
+  use 'github/copilot.vim'
+
+  use 'RRethy/vim-illuminate'
 end)
