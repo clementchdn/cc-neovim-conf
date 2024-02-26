@@ -178,4 +178,6 @@ return require('packer').startup(function(use)
   use 'github/copilot.vim'
 
   use 'RRethy/vim-illuminate'
+
+  use 'nvim-pack/nvim-spectre'
 end)
