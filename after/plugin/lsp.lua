@@ -81,11 +81,8 @@ local servers = {
         }
       }
     }
-  }
-}
-
-lsp.configure('pylsp', { settings = servers['pylsp'] })
-lsp.configure('cssls', {
+  },
+  cssls = {
   settings = {
     css = {
       validate = true,
@@ -106,7 +103,11 @@ lsp.configure('cssls', {
       }
     }
   }
-})
+}
+}
+
+lsp.configure('pylsp', { settings = servers['pylsp'] })
+lsp.configure('cssls', { settings = servers['cssls'] })
 
 lsp.on_attach(on_lsp_attach)
 lsp.setup()
