@@ -71,7 +71,10 @@ local servers = {
     pylsp = {
       plugins = {
         pycodestyle = {
-          maxLineLength = 100
+          maxLineLength = 140,
+        },
+        black = {
+          enabled = true,
         },
         isort = {
           enabled = true
