@@ -180,4 +180,5 @@ return require('packer').startup(function(use)
   use 'RRethy/vim-illuminate'
 
   use 'nvim-pack/nvim-spectre'
+  use 'ggandor/leap.nvim'
 end)
