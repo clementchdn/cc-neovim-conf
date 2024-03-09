@@ -171,5 +171,12 @@ return require('packer').startup(function(use)
   use 'RRethy/vim-illuminate'
 
   use 'nvim-pack/nvim-spectre'
+
+  use 'stevearc/oil.nvim'
+
   use 'ggandor/leap.nvim'
+
+  use 'NStefan002/2048.nvim'
+
+  use 'ThePrimeagen/vim-be-good'
 end)

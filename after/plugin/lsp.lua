@@ -75,6 +75,7 @@ local servers = {
         },
         black = {
           enabled = true,
+          line_length = 140,
         },
         isort = {
           enabled = true
@@ -86,27 +87,27 @@ local servers = {
     }
   },
   cssls = {
-  settings = {
-    css = {
-      validate = true,
-      lint = {
-        unknownAtRules = 'ignore'
-      }
-    },
-    scss = {
-      validate = true,
-      lint = {
-        unknownAtRules = 'ignore'
-      }
-    },
-    less = {
-      validate = true,
-      lint = {
-        unknownAtRules = 'ignore'
+    settings = {
+      css = {
+        validate = true,
+        lint = {
+          unknownAtRules = 'ignore'
+        }
+      },
+      scss = {
+        validate = true,
+        lint = {
+          unknownAtRules = 'ignore'
+        }
+      },
+      less = {
+        validate = true,
+        lint = {
+          unknownAtRules = 'ignore'
+        }
       }
     }
   }
-}
 }
 
 lsp.configure('pylsp', { settings = servers['pylsp'] })
