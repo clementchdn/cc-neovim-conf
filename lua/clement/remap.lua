@@ -58,3 +58,9 @@ end)
 vim.keymap.set("t", "<Esc>", "<C-\\><C-n>")
 
 vim.keymap.set("n", "<leader>da", "<cmd>NoiceDismiss<CR>", { desc = "Dismiss Noice Message" })
+
+-- used to follow link without netrw
+vim.keymap.set("n", "gx", [[:silent execute '!open ' . shellescape(expand('<cfile>'), 1)<CR>]])
+
+
+

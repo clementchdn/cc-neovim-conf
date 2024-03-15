@@ -75,11 +75,6 @@ return require('packer').startup(function(use)
   use({
     "kylechui/nvim-surround",
     tag = "*", -- Use for stability; omit to use `main` branch for the latest features
-    config = function()
-      require("nvim-surround").setup({
-        -- Configuration here, or leave empty to use defaults
-      })
-    end
   })
 
   use({
@@ -181,4 +176,7 @@ return require('packer').startup(function(use)
   use 'NStefan002/2048.nvim'
 
   use 'ThePrimeagen/vim-be-good'
+
+  use 'ray-x/go.nvim'
+  use 'ray-x/guihua.lua' -- recommended if need floating window support
 end)
