@@ -62,5 +62,11 @@ vim.keymap.set("n", "<leader>da", "<cmd>NoiceDismiss<CR>", { desc = "Dismiss Noi
 -- used to follow link without netrw
 vim.keymap.set("n", "gx", [[:silent execute '!open ' . shellescape(expand('<cfile>'), 1)<CR>]])
 
+-- toggle number mode
+function _G.toggle_number_mode()
+  local wo = vim.wo
+  wo.number = true
+  wo.relativenumber = not wo.relativenumber
+end
 
-
+vim.keymap.set("n", "<leader>tr", toggle_number_mode)
