@@ -42,7 +42,6 @@ return require('packer').startup(function(use)
 
   use {
     'VonHeikemen/lsp-zero.nvim',
-    branch = 'v1.x',
     requires = {
       -- LSP Support
       { 'neovim/nvim-lspconfig',            opts = { format = { timeout_ms = 3000 } } },
@@ -93,7 +92,7 @@ return require('packer').startup(function(use)
   -- nvim-dap for debuggging
   use 'mfussenegger/nvim-dap'
   use 'mfussenegger/nvim-dap-python'
-  use { "rcarriga/nvim-dap-ui", requires = { "mfussenegger/nvim-dap" } }
+  use { "rcarriga/nvim-dap-ui", requires = { "mfussenegger/nvim-dap", "nvim-neotest/nvim-nio" } }
 
   use({
     "kdheepak/lazygit.nvim",

@@ -6,48 +6,43 @@ require("mason").setup({
   }
 })
 
-local lsp = require("lsp-zero")
+local lsp_zero = require("lsp-zero")
 
-lsp.preset("recommended")
-
-lsp.ensure_installed({
-  -- 'tsserver',
-  'rust_analyzer',
-  'clangd',
-  'pylsp',
-  'lemminx'
+lsp_zero.set_sign_icons({
+  error = 'E',
+  warn = 'W',
+  hint = 'H',
+  info = 'I'
 })
 
--- Fix Undefined global 'vim'
-lsp.nvim_workspace()
-
-local cmp = require('cmp')
-
-local cmp_select = { behavior = cmp.SelectBehavior.Select }
-local cmp_mappings = lsp.defaults.cmp_mappings({
-  ['<C-p>'] = cmp.mapping.select_prev_item(cmp_select),
-  ['<C-n>'] = cmp.mapping.select_next_item(cmp_select),
-  ['<C-y>'] = cmp.mapping.confirm({ select = true }),
-  ['<CR>'] = cmp.mapping.confirm({ select = false }),
-  ["<C-Space>"] = cmp.mapping.complete(),
+vim.diagnostic.config({
+  -- changed default value here to true but to be verified
+  virtual_text = true,
+  severity_sort = true,
+  float = {
+    style = 'minimal',
+    border = 'rounded',
+    source = true,
+    header = '',
+    prefix = '',
+  },
 })
 
-cmp_mappings['<Tab>'] = nil
-cmp_mappings['<S-Tab>'] = nil
+local lua_opts = lsp_zero.nvim_lua_ls()
+require('lspconfig').lua_ls.setup(lua_opts)
 
-lsp.setup_nvim_cmp({
-  mapping = cmp_mappings
-})
+lsp_zero.preset("recommended")
 
-lsp.set_preferences({
-  suggest_lsp_servers = false,
-  sign_icons = {
-    error = 'E',
-    warn = 'W',
-    hint = 'H',
-    info = 'I'
+require('mason-lspconfig').setup({
+  ensure_installed = {
+    'tsserver',
+    'rust_analyzer',
+    'clangd',
+    'pylsp',
+    'lemminx'
   }
 })
+
 
 local function on_lsp_attach(_, bufnr)
   local opts = { buffer = bufnr, remap = false }
@@ -110,33 +105,50 @@ local servers = {
   }
 }
 
-lsp.configure('pylsp', { settings = servers['pylsp'] })
-lsp.configure('cssls', { settings = servers['cssls'] })
+lsp_zero.configure('pylsp', { settings = servers['pylsp'] })
+lsp_zero.configure('cssls', { settings = servers['cssls'] })
 
-lsp.on_attach(on_lsp_attach)
-lsp.setup()
-
-vim.diagnostic.config({
-  virtual_text = true
+require('mason').setup()
+require('mason-lspconfig').setup({
+  handlers = {
+    lsp_zero.default_setup,
+  }
 })
 
--- require('sonarlint').setup({
---   server = {
---     cmd = {
---       'sonarlint-language-server',
---       -- Ensure that sonarlint-language-server uses stdio channel
---       '-stdio',
---       '-analyzers',
---       -- paths to the analyzers you need, using those for python and java in this example
---       vim.fn.expand("$MASON/share/sonarlint-analyzers/sonarpython.jar"),
---       vim.fn.expand("$MASON/share/sonarlint-analyzers/sonarcfamily.jar"),
---       vim.fn.expand("$MASON/share/sonarlint-analyzers/sonarjava.jar"),
---     }
---   },
---   filetypes = {
---     -- Tested and working
---     'python',
---     'cpp',
---     'java',
---   }
--- })
+lsp_zero.on_attach(on_lsp_attach)
+lsp_zero.setup()
+
+local cmp = require('cmp')
+local cmp_select = { behavior = cmp.SelectBehavior.Select }
+cmp.setup({
+  window = {
+    documentation = cmp.config.window.bordered(),
+  },
+  mapping = cmp.mapping.preset.insert({
+    -- confirm completion item
+    -- ['<CR>'] = cmp.mapping.confirm({select = false}),
+    --
+    -- -- toggle completion menu
+    -- ['<C-e>'] = cmp_action.toggle_completion(),
+    --
+    -- -- tab complete
+    -- ['<Tab>'] = cmp_action.tab_complete(),
+    -- ['<S-Tab>'] = cmp.mapping.select_prev_item(),
+    --
+    -- -- navigate between snippet placeholder
+    -- ['<C-d>'] = cmp_action.luasnip_jump_forward(),
+    -- ['<C-b>'] = cmp_action.luasnip_jump_backward(),
+    --
+    -- -- scroll documentation window
+    -- ['<C-f>'] = cmp.mapping.scroll_docs(-5),
+    -- ['<C-d>'] = cmp.mapping.scroll_docs(5),
+
+    ['<C-p>'] = cmp.mapping.select_prev_item(cmp_select),
+    ['<C-n>'] = cmp.mapping.select_next_item(cmp_select),
+    ['<C-y>'] = cmp.mapping.confirm({ select = true }),
+    ['<CR>'] = cmp.mapping.confirm({ select = false }),
+    ["<C-Space>"] = cmp.mapping.complete(),
+    ['<Tab>'] = nil,
+    ['<S-Tab>'] = nil,
+  })
+})
