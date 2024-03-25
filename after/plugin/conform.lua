@@ -20,6 +20,10 @@ conform.setup({
   }
 })
 
+conform.formatters.black = {
+  prepend_args = { "--line-length=140" },
+}
+
 vim.api.nvim_create_autocmd("BufWritePre", {
   pattern = "*",
   callback = function(args)
