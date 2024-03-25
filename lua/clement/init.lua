@@ -1,5 +1,6 @@
 require("clement.remap")
 require("clement.set")
+require("clement.lazy")
 
 -- vim.api.nvim_create_autocmd({ "BufNewFile,BufRead" }, {
 --   pattern = { "*.json", "*.jsonc", "*.gltf" },
