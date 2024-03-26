@@ -68,6 +68,9 @@ local servers = {
         pycodestyle = {
           maxLineLength = 140,
         },
+        pyflakes = {
+          enabled= false,
+        },
         black = {
           enabled = true,
           line_length = 140,
