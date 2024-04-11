@@ -31,7 +31,20 @@ require('lualine').setup {
     lualine_c = { 'filename' },
     lualine_x = { 'location' },
     lualine_y = {},
-    lualine_z = {}
+    lualine_z = {
+      "location",
+      {
+        function()
+          local starts = vim.fn.line("v")
+          local ends = vim.fn.line(".")
+          local count = starts <= ends and ends - starts + 1 or starts - ends + 1
+          return count .. "V"
+        end,
+        cond = function()
+          return vim.fn.mode():find("[Vv]") ~= nil
+        end,
+      },
+    },
   },
   tabline = {},
   winbar = {},

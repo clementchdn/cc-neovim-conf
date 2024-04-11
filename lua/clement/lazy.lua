@@ -173,7 +173,8 @@ local plugins = {
   'ThePrimeagen/vim-be-good',
 
   'ray-x/go.nvim',
-  'ray-x/guihua.lua' -- recommended if need floating window support,
+  'ray-x/guihua.lua', -- recommended if need floating window support
+  { "mistricky/codesnap.nvim", build = "make" },
 }
 
 require("lazy").setup(plugins, {})
