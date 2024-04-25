@@ -175,6 +175,27 @@ local plugins = {
   'ray-x/go.nvim',
   'ray-x/guihua.lua', -- recommended if need floating window support
   { "mistricky/codesnap.nvim", build = "make" },
+  -- hardtime
+  {
+    "m4xshen/hardtime.nvim",
+    dependencies = { "MunifTanjim/nui.nvim", "nvim-lua/plenary.nvim" },
+    opts = {
+      max_count = 10,
+      disabled_keys = {
+        ["<Up>"] = { "" },
+        ["<Down>"] = { "" },
+        ["<Left>"] = { "" },
+        ["<Right>"] = { "" },
+      },
+    }
+  },
+  -- neoscroll for smooth ctrl-D and ctrl-U
+  {
+    "karb94/neoscroll.nvim",
+    config = function()
+      require('neoscroll').setup {}
+    end
+  }
 }
 
 require("lazy").setup(plugins, {})
