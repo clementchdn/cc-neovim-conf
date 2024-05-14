@@ -50,3 +50,4 @@ vim.keymap.set('n', 'gd', "<CMD>Telescope lsp_definitions<CR>")
 
 require("telescope").load_extension("noice")
 require("telescope").load_extension("advanced_git_search")
+vim.keymap.set('n', '<leader>ph', '<CMD>Telescope advanced_git_search diff_commit_file<CR>')
