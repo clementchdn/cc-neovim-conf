@@ -69,7 +69,7 @@ local servers = {
           maxLineLength = 140,
         },
         pyflakes = {
-          enabled= false,
+          enabled = false,
         },
         black = {
           enabled = true,
@@ -105,12 +105,13 @@ local servers = {
         }
       }
     }
-  }
+  },
 }
 
 lsp_zero.configure('pylsp', { settings = servers['pylsp'] })
 lsp_zero.configure('cssls', { settings = servers['cssls'] })
 
+-- volar
 local lspconfig = require('lspconfig')
 lspconfig.tsserver.setup {
   init_options = {
@@ -132,12 +133,26 @@ lspconfig.volar.setup {
   },
 }
 
+-- gopls
+lspconfig.gopls.setup {
+  settings = {
+    gopls = {
+      analyses = {
+        unusedparams = true,
+      },
+      staticcheck = true,
+      gofumpt = true,
+    },
+  },
+}
+
 require('mason').setup()
 require('mason-lspconfig').setup({
   handlers = {
     lsp_zero.default_setup,
   }
 })
+
 
 lsp_zero.on_attach(on_lsp_attach)
 lsp_zero.setup()

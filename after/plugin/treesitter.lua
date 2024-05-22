@@ -14,6 +14,7 @@ require 'nvim-treesitter.configs'.setup {
 
   highlight = {
     enable = true,
+    disable = { "csv" },
 
     -- Or use a function for more flexibility, e.g. to disable slow treesitter highlight for large files
     -- Setting this to true will run `:h syntax` and tree-sitter at the same time.

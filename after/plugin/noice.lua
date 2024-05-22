@@ -44,4 +44,3 @@ require("noice").setup({
     view = "notify",
   },
 })
-
