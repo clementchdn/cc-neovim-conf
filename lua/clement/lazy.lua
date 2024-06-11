@@ -92,6 +92,7 @@ local plugins = {
       "rcarriga/nvim-dap-ui",
       "leoluz/nvim-dap-go",
       'mfussenegger/nvim-dap-python',
+      'mxsdev/nvim-dap-vscode-js'
     }
   },
   {
@@ -102,6 +103,7 @@ local plugins = {
       "antoinemadec/FixCursorHold.nvim",
       "nvim-treesitter/nvim-treesitter",
       "nvim-neotest/neotest-python",
+      "marilari88/neotest-vitest"
     }
   },
 

@@ -4,6 +4,11 @@ require("neotest").setup({
       args = { "-v" }, -- get more diff
       runner = "pytest",
     }),
+    require("neotest-vitest")({
+      filter_dir = function(name, rel_path, root)
+        return name ~= "node_modules"
+      end,
+    }),
   },
   output = {
     -- disable pop-up with failing test info (prefer virtual text)
