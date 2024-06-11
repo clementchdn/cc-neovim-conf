@@ -86,9 +86,24 @@ local plugins = {
         },
     }--]]
   -- nvim-dap for debuggging
-  'mfussenegger/nvim-dap',
-  'mfussenegger/nvim-dap-python',
-  { "rcarriga/nvim-dap-ui",     dependencies = { "mfussenegger/nvim-dap", "nvim-neotest/nvim-nio" } },
+  {
+    'mfussenegger/nvim-dap',
+    dependencies = {
+      "rcarriga/nvim-dap-ui",
+      "leoluz/nvim-dap-go",
+      'mfussenegger/nvim-dap-python',
+    }
+  },
+  {
+    "nvim-neotest/neotest",
+    dependencies = {
+      "nvim-neotest/nvim-nio",
+      "nvim-lua/plenary.nvim",
+      "antoinemadec/FixCursorHold.nvim",
+      "nvim-treesitter/nvim-treesitter",
+      "nvim-neotest/neotest-python",
+    }
+  },
 
   {
     "kdheepak/lazygit.nvim",
@@ -160,7 +175,21 @@ local plugins = {
     cmd = "Copilot",
     event = "InsertEnter",
     config = function()
-      require("copilot").setup({})
+      require("copilot").setup({
+        suggestion = {
+          enabled = true,
+          auto_trigger = true,
+          debounce = 75,
+          keymap = {
+            accept = "<M-l>",
+            accept_word = false,
+            accept_line = false,
+            next = "<M-]>",
+            prev = "<M-[>",
+            dismiss = "<C-]>",
+          },
+        },
+      })
     end,
   },
 
@@ -168,11 +197,11 @@ local plugins = {
     "CopilotC-Nvim/CopilotChat.nvim",
     branch = "canary",
     dependencies = {
-      { "zbirenbaum/copilot.lua" },     -- or github/copilot.vim
-      { "nvim-lua/plenary.nvim" },      -- for curl, log wrapper
+      { "zbirenbaum/copilot.lua" }, -- or github/copilot.vim
+      { "nvim-lua/plenary.nvim" },  -- for curl, log wrapper
     },
     opts = {
-      debug = true,     -- Enable debugging
+      debug = true, -- Enable debugging
       -- See Configuration section for rest
     },
     -- See Commands section for default commands if you want to lazy load on them
@@ -192,7 +221,7 @@ local plugins = {
 
   'ray-x/go.nvim',
   'ray-x/guihua.lua', -- recommended if need floating window support
-  { "mistricky/codesnap.nvim", build = "make" },
+  { "mistricky/codesnap.nvim",  build = "make" },
   -- hardtime
   {
     "m4xshen/hardtime.nvim",
