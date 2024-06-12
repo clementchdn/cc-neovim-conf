@@ -1,8 +1,12 @@
 require("neotest").setup({
   adapters = {
     require("neotest-python")({
-      args = { "-v" }, -- get more diff
+      args = { "-sv" }, -- get more diff
       runner = "pytest",
+      dap = {
+        console = "integratedTerminal",
+        -- redirectOutput = true,
+      }
     }),
     require("neotest-vitest")({
       filter_dir = function(name, rel_path, root)
@@ -12,10 +16,17 @@ require("neotest").setup({
   },
   output = {
     -- disable pop-up with failing test info (prefer virtual text)
+    enabled = true,
     open_on_run = false,
+  },
+  output_panel = {
+    -- open output panel automatically
+    enabled = true,
+    open = "top split | resize 15",
   },
   quickfix = {
     enabled = false,
+    open = false,
   },
 })
 

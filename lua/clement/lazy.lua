@@ -92,7 +92,8 @@ local plugins = {
       "rcarriga/nvim-dap-ui",
       "leoluz/nvim-dap-go",
       'mfussenegger/nvim-dap-python',
-      'mxsdev/nvim-dap-vscode-js'
+      'mxsdev/nvim-dap-vscode-js',
+      'LiadOz/nvim-dap-repl-highlights',
     }
   },
   {
@@ -260,6 +261,42 @@ local plugins = {
     },
   },
   {
+    "doctorfree/cheatsheet.nvim",
+    event = "VeryLazy",
+    dependencies = {
+      { "nvim-telescope/telescope.nvim" },
+      { "nvim-lua/popup.nvim" },
+      { "nvim-lua/plenary.nvim" },
+    },
+    config = function()
+      local ctactions = require("cheatsheet.telescope.actions")
+      require("cheatsheet").setup({
+        bundled_cheetsheets = {
+          enabled = { "default", "lua", "markdown", "regex", "netrw", "unicode" },
+          disabled = { "nerd-fonts" },
+        },
+        bundled_plugin_cheatsheets = {
+          enabled = {
+            "auto-session",
+            "goto-preview",
+            "octo.nvim",
+            "telescope.nvim",
+            "vim-easy-align",
+            "vim-sandwich",
+          },
+          disabled = { "gitsigns" },
+        },
+        include_only_installed_plugins = true,
+        telescope_mappings = {
+          ["<CR>"] = ctactions.select_or_fill_commandline,
+          ["<A-CR>"] = ctactions.select_or_execute,
+          ["<C-Y>"] = ctactions.copy_cheat_value,
+          -- ["<C-E>"] = ctactions.edit_user_cheatsheet,
+        },
+      })
+    end,
+  },
+  {
     "chrishrb/gx.nvim",
     keys = { { "gx", "<cmd>Browse<cr>", mode = { "n", "x" } } },
     cmd = { "Browse" },
@@ -269,7 +306,29 @@ local plugins = {
     dependencies = { "nvim-lua/plenary.nvim" },
     config = true,      -- default settings
     submodules = false, -- not needed, submodules are required only for tests
-  }
+  },
+  {
+    "folke/lazydev.nvim",
+    ft = "lua", -- only load on lua files
+    opts = {
+      library = {
+        -- See the configuration section for more details
+        -- Load luvit types when the `vim.uv` word is found
+        { path = "luvit-meta/library", words = { "vim%.uv" } },
+      },
+    },
+  },
+  { "Bilal2453/luvit-meta", lazy = true }, -- optional `vim.uv` typings
+  {                                        -- optional completion source for require statements and module annotations
+    "hrsh7th/nvim-cmp",
+    opts = function(_, opts)
+      opts.sources = opts.sources or {}
+      table.insert(opts.sources, {
+        name = "lazydev",
+        group_index = 0, -- set group index to 0 to skip loading LuaLS completions
+      })
+    end,
+  },
 }
 
 require("lazy").setup(plugins, {})
