@@ -9,7 +9,7 @@ require("neotest").setup({
       }
     }),
     require("neotest-vitest")({
-      filter_dir = function(name, rel_path, root)
+      filter_dir = function(name)
         return name ~= "node_modules"
       end,
     }),
@@ -50,8 +50,16 @@ vim.keymap.set("n", "<leader>ts", "<CMD>Neotest stop<CR>")
 -- run all tests in app/tests
 vim.keymap.set("n", "<leader>ta",
   function()
+    local filetype = vim.bo.filetype
+    local tests_path = ""
+    if (filetype == "python") then
+      tests_path = vim.fn.expand(vim.fn.getcwd() .. "/app/tests/")
+    elseif (filetype == "typescript" or filetype == "javascript" or filetype == "typescriptreact" or filetype == "javascriptreact") then
+      tests_path = vim.fn.expand(vim.fn.getcwd() .. "/src/**/__tests__/*")
+    end
+    print(tests_path)
     require("neotest").run.run({
-      vim.fn.expand(vim.fn.getcwd() .. "/app/tests/"),
+      tests_path,
       strategy = "dap",
       env = { ENVIRONMENT = "test" },
       extra_args = {
