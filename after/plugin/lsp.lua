@@ -29,8 +29,8 @@ vim.diagnostic.config({
 	},
 })
 
-local lua_opts = lsp_zero.nvim_lua_ls()
-require("lspconfig").lua_ls.setup(lua_opts)
+-- local lua_opts = lsp_zero.nvim_lua_ls()
+-- require("lspconfig").lua_ls.setup(lua_opts)
 
 -- lsp_zero.preset("recommended")
 
@@ -169,11 +169,25 @@ lspconfig.gopls.setup({
 
 local cmp_nvim_lsp = require("cmp_nvim_lsp")
 
+local clangd_root_files = {
+	".clangd",
+	".clang-tidy",
+	".clang-format",
+	"compile_commands.json",
+	"compile_flags.txt",
+	"configure.ac", -- AutoTools
+}
+
 lspconfig.clangd.setup({
 	on_attach = on_attach,
 	capabilities = cmp_nvim_lsp.default_capabilities(),
+	-- root_dir = function(fname)
+	-- 	local root_dir = lspconfig.util.root_pattern(unpack(clangd_root_files))(fname) or vim.fn.getcwd() .. "/.vscode"
+	-- 	return root_dir
+	-- end,
 	cmd = {
 		"clangd",
+		-- "-style=file:" .. vim.fn.getcwd() .. "/.vscode/.clang-format",
 		"--offset-encoding=utf-16",
 	},
 })
