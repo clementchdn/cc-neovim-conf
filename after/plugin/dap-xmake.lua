@@ -22,6 +22,6 @@ dap.configurations.cpp = {
 			return require("xmake.project").info.target.exec_path
 		end,
 		cwd = "${workspaceFolder}",
-		stopAtEntry = false,
+		stopAtEntry = true,
 	},
 }

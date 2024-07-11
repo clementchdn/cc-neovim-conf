@@ -12,11 +12,15 @@ conform.setup({
     typescriptreact = { { "prettierd", "prettier" } },
     html = { { "prettierd", "prettier" } },
     vue = { { "prettierd", "prettier" } },
-    -- format_on_save = {
-    --   lsp_fallback = true,
-    --   async = false,
-    --   timeout_ms = 1000,
-    -- },
+    cpp = { "clang-format" },
+    c = { "clang-format" },
+    hpp = { "clang-format" },
+    h = { "clang-format" },
+    format_on_save = {
+      lsp_fallback = true,
+      async = false,
+      timeout_ms = 1000,
+    },
   }
 })
 
