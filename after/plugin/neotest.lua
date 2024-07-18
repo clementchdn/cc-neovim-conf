@@ -63,7 +63,6 @@ vim.keymap.set("n", "<leader>ta", function()
 	then
 		tests_path = vim.fn.expand(vim.fn.getcwd() .. "/src/**/__tests__/*")
 	end
-	print(tests_path)
 	require("neotest").run.run({
 		tests_path,
 		strategy = "dap",
