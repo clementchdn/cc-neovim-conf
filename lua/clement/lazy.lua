@@ -15,6 +15,12 @@ local plugins = {
 
 	"olimorris/onedarkpro.nvim",
 	{ "catppuccin/nvim", name = "catppuccin" },
+	{
+		"eldritch-theme/eldritch.nvim",
+		lazy = false,
+		priority = 1000,
+		opts = {},
+	},
 
 	"xiyaowong/transparent.nvim",
 
@@ -178,42 +184,42 @@ local plugins = {
 
 	"christoomey/vim-tmux-navigator",
 
-	{
-		"zbirenbaum/copilot.lua",
-		cmd = "Copilot",
-		event = "InsertEnter",
-		config = function()
-			require("copilot").setup({
-				suggestion = {
-					enabled = true,
-					auto_trigger = true,
-					debounce = 75,
-					keymap = {
-						accept = "<M-l>",
-						accept_word = false,
-						accept_line = false,
-						next = "<M-]>",
-						prev = "<M-[>",
-						dismiss = "<C-]>",
-					},
-				},
-			})
-		end,
-	},
-
-	{
-		"CopilotC-Nvim/CopilotChat.nvim",
-		branch = "canary",
-		dependencies = {
-			{ "zbirenbaum/copilot.lua" }, -- or github/copilot.vim
-			{ "nvim-lua/plenary.nvim" }, -- for curl, log wrapper
-		},
-		opts = {
-			debug = true, -- Enable debugging
-			-- See Configuration section for rest
-		},
-		-- See Commands section for default commands if you want to lazy load on them
-	},
+	-- {
+	-- 	"zbirenbaum/copilot.lua",
+	-- 	cmd = "Copilot",
+	-- 	event = "InsertEnter",
+	-- 	config = function()
+	-- 		require("copilot").setup({
+	-- 			suggestion = {
+	-- 				enabled = true,
+	-- 				auto_trigger = true,
+	-- 				debounce = 75,
+	-- 				keymap = {
+	-- 					accept = "<M-l>",
+	-- 					accept_word = false,
+	-- 					accept_line = false,
+	-- 					next = "<M-]>",
+	-- 					prev = "<M-[>",
+	-- 					dismiss = "<C-]>",
+	-- 				},
+	-- 			},
+	-- 		})
+	-- 	end,
+	-- },
+	--
+	-- {
+	-- 	"CopilotC-Nvim/CopilotChat.nvim",
+	-- 	branch = "canary",
+	-- 	dependencies = {
+	-- 		{ "zbirenbaum/copilot.lua" }, -- or github/copilot.vim
+	-- 		{ "nvim-lua/plenary.nvim" }, -- for curl, log wrapper
+	-- 	},
+	-- 	opts = {
+	-- 		debug = true, -- Enable debugging
+	-- 		-- See Configuration section for rest
+	-- 	},
+	-- 	-- See Commands section for default commands if you want to lazy load on them
+	-- },
 
 	"RRethy/vim-illuminate",
 
@@ -384,6 +390,26 @@ local plugins = {
 		-- has to be loaded on startup. Otherwise, the interactive feature of the `Subs` will only be
 		-- available after the first executing of it or after a keymap of text-case.nvim has been used.
 		lazy = false,
+	},
+	{
+		"Zeioth/dooku.nvim",
+		event = "VeryLazy",
+		opts = {
+			-- your config options here
+		},
+	},
+	{
+		"L3MON4D3/LuaSnip",
+		-- follow latest release.
+		version = "v2.*", -- Replace <CurrentMajor> by the latest released major (first number of latest release)
+		-- install jsregexp (optional!).
+		build = "make install_jsregexp",
+	},
+	{
+		"danymat/neogen",
+		config = true,
+		-- Uncomment next line if you want to follow only stable versions
+		-- version = "*"
 	},
 }
 

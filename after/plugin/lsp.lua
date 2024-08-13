@@ -200,7 +200,30 @@ local function switch_source_header(bufnr)
 	end
 end
 
+local function find_closest_lua_file(filepath)
+	local dir = string.match(filepath, "(.*)/") or "./"
+	local substringToRemove = "file://"
+	local modifiedDir = dir.gsub(dir, substringToRemove, "")
+
+	local closestFile = io.popen("find " .. modifiedDir .. "/.." .. " -type f -name '*.lua' -print -quit 2>/dev/null")
+		:read("*a")
+	if string.len(closestFile) <= 0 then
+		closestFile =
+			io.popen("find " .. modifiedDir .. "/.." .. "/.." .. " -type f -name '*.lua' -print -quit 2>/dev/null")
+				:read("*a")
+	end
+	return closestFile
+end
+
+local function open_lua_file(bufnr)
+	bufnr = util.validate_bufnr(bufnr)
+	local current_buffer_path = vim.uri_from_bufnr(bufnr)
+	local found_lua_file = find_closest_lua_file(current_buffer_path)
+	vim.api.nvim_command("edit " .. vim.uri_to_fname("file://" .. found_lua_file))
+end
+
 local clangd_root_files = {
+	"clang-format",
 	".clangd",
 	".clang-tidy",
 	".clang-format",
@@ -212,13 +235,14 @@ local clangd_root_files = {
 lspconfig.clangd.setup({
 	on_attach = on_attach,
 	capabilities = cmp_nvim_lsp.default_capabilities(),
-	-- root_dir = function(fname)
-	-- 	local root_dir = lspconfig.util.root_pattern(unpack(clangd_root_files))(fname) or vim.fn.getcwd() .. "/.vscode"
-	-- 	return root_dir
-	-- end,
+	root_dir = function(fname)
+		local root_dir = lspconfig.util.root_pattern(unpack(clangd_root_files))(fname) or vim.fn.getcwd() .. "/.vscode"
+		return root_dir
+	end,
 	cmd = {
 		"clangd",
-		-- "-style=file:" .. vim.fn.getcwd() .. "/.vscode/.clang-format",
+		-- "-style=file:clang-format",
+		-- "-style=file:" .. vim.fn.getcwd() .. "/clang-format",
 		"--offset-encoding=utf-16",
 	},
 	commands = {
@@ -227,6 +251,12 @@ lspconfig.clangd.setup({
 				switch_source_header(0)
 			end,
 			description = "Switch between source/header",
+		},
+		ClangOpenXmake = {
+			function()
+				open_lua_file(0)
+			end,
+			description = "Find closest xmake file",
 		},
 	},
 })
@@ -241,11 +271,22 @@ require("mason-lspconfig").setup({
 lsp_zero.on_attach(on_lsp_attach)
 lsp_zero.setup()
 
+local luasnip = require("luasnip")
 local cmp = require("cmp")
 local cmp_select = { behavior = cmp.SelectBehavior.Select }
 cmp.setup({
 	window = {
 		documentation = cmp.config.window.bordered(),
+	},
+	snippet = {
+		expand = function(args)
+			require("luasnip").lsp_expand(args.body)
+		end,
+	},
+	sources = {
+		{ name = "luasnip" },
+		{ name = "nvim_lsp" },
+		{ name = "buffer" },
 	},
 	mapping = cmp.mapping.preset.insert({
 		-- confirm completion item
@@ -269,9 +310,43 @@ cmp.setup({
 		["<C-p>"] = cmp.mapping.select_prev_item(cmp_select),
 		["<C-n>"] = cmp.mapping.select_next_item(cmp_select),
 		["<C-y>"] = cmp.mapping.confirm({ select = true }),
-		["<CR>"] = cmp.mapping.confirm({ select = false }),
+		-- ["<CR>"] = cmp.mapping.confirm({ select = false }),
 		["<C-Space>"] = cmp.mapping.complete(),
-		["<Tab>"] = nil,
-		["<S-Tab>"] = nil,
+		-- ["<Tab>"] = nil,
+		-- ["<S-Tab>"] = nil,
+
+		["<CR>"] = cmp.mapping(function(fallback)
+			if cmp.visible() then
+				if luasnip.expandable() then
+					luasnip.expand()
+				else
+					cmp.confirm({
+						select = true,
+					})
+				end
+			else
+				fallback()
+			end
+		end),
+
+		["<Tab>"] = cmp.mapping(function(fallback)
+			if cmp.visible() then
+				cmp.select_next_item()
+			elseif luasnip.locally_jumpable(1) then
+				luasnip.jump(1)
+			else
+				fallback()
+			end
+		end, { "i", "s" }),
+
+		["<S-Tab>"] = cmp.mapping(function(fallback)
+			if cmp.visible() then
+				cmp.select_prev_item()
+			elseif luasnip.locally_jumpable(-1) then
+				luasnip.jump(-1)
+			else
+				fallback()
+			end
+		end, { "i", "s" }),
 	}),
 })

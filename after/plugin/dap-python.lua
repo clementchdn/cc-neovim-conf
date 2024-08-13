@@ -1,5 +1,5 @@
 local path = vim.fn.getcwd()
-require('dap-python').setup(path .. '/.venv/bin/python3.12')
+require('dap-python').setup(path .. '/.venv/bin/python')
 
 function _G.get_pytest_name()
   local oldpos = vim.fn.getpos('.')

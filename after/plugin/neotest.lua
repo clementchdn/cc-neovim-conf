@@ -13,7 +13,7 @@ require("neotest").setup({
 				return name ~= "node_modules"
 			end,
 		}),
-		require("neotest-gtest").setup({ debug_adapter = "cppdbg" }),
+		-- require("neotest-gtest").setup({ debug_adapter = "cppdbg" }),
 	},
 	output = {
 		-- disable pop-up with failing test info (prefer virtual text)

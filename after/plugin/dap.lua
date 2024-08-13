@@ -6,7 +6,7 @@ require("dap-go").setup()
 dap.adapters.cppdbg = {
 	id = "cppdbg",
 	type = "executable",
-	command = "/home/clement/cpptools/extension/debugAdapters/bin/OpenDebugAD7",
+	command = "/home/spring/cpptools/extension/debugAdapters/bin/OpenDebugAD7",
 }
 
 -- dapui

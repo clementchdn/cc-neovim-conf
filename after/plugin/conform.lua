@@ -12,16 +12,19 @@ conform.setup({
 		typescriptreact = { { "prettierd", "prettier" } },
 		html = { { "prettierd", "prettier" } },
 		vue = { { "prettierd", "prettier" } },
-		cpp = { "clang-format" },
-		c = { "clang-format" },
-		hpp = { "clang-format" },
-		h = { "clang-format" },
+		-- cpp = { "clangd" },
+		-- c = { "clangd" },
+		-- hpp = { "clang-format" },
+		-- h = { "clang-format" },
 		format_on_save = {
 			lsp_fallback = true,
 			async = false,
 			timeout_ms = 1000,
 		},
 	},
+  default_format_opts = {
+    timeout_ms = 10000
+  }
 })
 
 conform.formatters.black = {
@@ -34,3 +37,4 @@ vim.api.nvim_create_autocmd("BufWritePre", {
 		conform.format({ bufnr = args.buf })
 	end,
 })
+-- vim.keymap.set("n", "<leader>f", conform.format({bufnr = 0}))
