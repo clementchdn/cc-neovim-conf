@@ -325,6 +325,9 @@ cmp.setup({
 					})
 				end
 			else
+				cmp.confirm({
+					select = false,
+				})
 				fallback()
 			end
 		end),

@@ -50,9 +50,21 @@ local function tablelength(T)
 	return count
 end
 
+local function removeAfterEquals(inputString)
+	local pos = string.find(inputString, "=")
+	if pos then
+		return string.sub(inputString, 1, pos - 1)
+	else
+		return inputString
+	end
+end
+
+local truc = removeAfterEquals("int toto = 0")
+print(truc)
+
 local cpp_function_fmt = [[
 {doc}
-{virtual} {ret} {name}({params}){const};
+{virtual}{ret} {name}({params}){const};
 ]]
 local cpp_function_snippet = function()
 	return fmt(cpp_function_fmt, {
@@ -61,19 +73,37 @@ local cpp_function_snippet = function()
 			return isn(nil, {
 				t({ "/**", " @brief " }),
 				i(1, "function description"),
+				-- f(function()
+				-- 	print(vim.fn.getreg('"+'))
+				-- 	local register_data = vim.fn.getreg('"+') .. ""
+				-- 	if register_data == nil then
+				-- 		return ""
+				-- 	end
+				-- 	return register_data
+				-- end),
 				d(2, function()
 					local param_str = args[2][1]
 					if param_str == "" then
 						return sn(1, { t("") })
 					end
-					local params = vim.split(param_str, ",")
+					local params = {}
+					local comma_separated_strings = vim.split(param_str, ",")
+					for _, str in ipairs(comma_separated_strings) do
+						-- trim
+						local param_without_default_value = removeAfterEquals(str)
+						local trimmed_str = string.gsub(param_without_default_value, "^%s*(.-)%s*$", "%1")
+						local words = vim.split(trimmed_str, " ")
+						local nb_of_words = tablelength(words)
+						table.insert(params, words[nb_of_words])
+					end
 					local nodes = {}
 					for index, param in ipairs(params) do
 						table.insert(
 							nodes,
 							sn(
 								index,
-								fmt("\n\n @param {param_name} {param_desc}", {
+								fmt("\n\n{} @param {param_name} {param_desc}", {
+									t(""),
 									param_name = t(param),
 									param_desc = i(1, "description"),
 								})
@@ -99,7 +129,7 @@ local cpp_function_snippet = function()
 		name = i(3, "func_name"),
 		params = i(4),
 		ret = i(2, "return_type"),
-		virtual = c(1, { t("virtual"), t("") }),
+		virtual = c(1, { t("virtual "), t("") }),
 	}, {
 		stored = {
 			["return_type"] = i(nil, "void"),
