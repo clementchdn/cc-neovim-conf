@@ -59,9 +59,6 @@ local function removeAfterEquals(inputString)
 	end
 end
 
-local truc = removeAfterEquals("int toto = 0")
-print(truc)
-
 local cpp_function_fmt = [[
 {doc}
 {virtual}{ret} {name}({params}){const};
@@ -136,11 +133,17 @@ local cpp_function_snippet = function()
 		},
 	})
 end
+
+local include_fmt = [[
+#include "{filename}.h"
+typedef C{classname} {ogclass};
+]]
+
 ls.add_snippets("cpp", {
 	s("funcsign", cpp_function_snippet()),
 	s(
 		"absclass",
-		f(function(args, snip)
+		f(function(_, snip)
 			-- print(vim.uri_to_fname(vim.uri_from_bufnr0))
 			local env = snip.env
 			print(env.TM_FILENAME_BASE)
@@ -155,16 +158,28 @@ ls.add_snippets("cpp", {
 			}
 		end, {})
 	),
-	s("inclabs", {
-		t("#include "),
-		i(1),
-		t(""),
-		t("typedef C"),
-		rep(1),
-		t(".h CAbs"),
-		rep(1),
-		t(".h"),
-	}),
+	s(
+		"inclabs",
+		fmt(include_fmt, {
+			classname = i(1, "filename"),
+			-- filename = rep(1),
+			filename = d(3, function(args)
+				local classname = args[1][1]
+				local filename = classname:sub(1)
+				return sn(nil, { t(filename) })
+			end, { 1 }),
+			-- absclass = d(2, function(args)
+			-- 	local header_file = args[1][1]
+			-- 	header_file = string.sub(header_file, 1)
+			-- 	return sn(nil, { t("C" .. header_file) })
+			-- end, { 1 }),
+			ogclass = d(2, function(args)
+				local header_file = args[1][1]
+				header_file = string.sub(header_file, 4)
+				return sn(nil, { t("C" .. header_file) })
+			end, { 1 }),
+		})
+	),
 	s("ifwin", {
 		t({ "#ifdef WIN32", "" }),
 		i(1),
