@@ -2,6 +2,8 @@ local conform = require("conform")
 
 conform.setup({
 	formatters_by_ft = {
+		c = { "clang-format" },
+		cpp = { "clang-format" },
 		lua = { "stylua" },
 		-- Conform will run multiple formatters sequentially
 		python = { "isort", "black" },
@@ -22,9 +24,9 @@ conform.setup({
 			timeout_ms = 1000,
 		},
 	},
-  default_format_opts = {
-    timeout_ms = 10000
-  }
+	default_format_opts = {
+		timeout_ms = 10000,
+	},
 })
 
 conform.formatters.black = {

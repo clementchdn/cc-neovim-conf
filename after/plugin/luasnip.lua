@@ -135,8 +135,8 @@ local cpp_function_snippet = function()
 end
 
 local include_fmt = [[
-#include "{filename}.h"
-typedef C{classname} {ogclass};
+#include "Abs{filename}.h"
+typedef CAbs{classname} C{ogclass};
 ]]
 
 ls.add_snippets("cpp", {
@@ -161,7 +161,7 @@ ls.add_snippets("cpp", {
 	s(
 		"inclabs",
 		fmt(include_fmt, {
-			classname = i(1, "filename"),
+			ogclass = i(1, "filename"),
 			-- filename = rep(1),
 			filename = d(3, function(args)
 				local classname = args[1][1]
@@ -173,10 +173,9 @@ ls.add_snippets("cpp", {
 			-- 	header_file = string.sub(header_file, 1)
 			-- 	return sn(nil, { t("C" .. header_file) })
 			-- end, { 1 }),
-			ogclass = d(2, function(args)
+			classname = d(2, function(args)
 				local header_file = args[1][1]
-				header_file = string.sub(header_file, 4)
-				return sn(nil, { t("C" .. header_file) })
+				return sn(nil, { t(header_file) })
 			end, { 1 }),
 		})
 	),

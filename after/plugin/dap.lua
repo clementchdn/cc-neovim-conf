@@ -9,6 +9,12 @@ dap.adapters.cppdbg = {
 	command = "/home/spring/cpptools/extension/debugAdapters/bin/OpenDebugAD7",
 }
 
+-- dap.adapters.xmake = {
+-- 	id = "cppdbg",
+-- 	type = "executable",
+-- 	command = "/home/spring/cpptools/extension/debugAdapters/bin/OpenDebugAD7",
+-- }
+
 -- dapui
 dapui.setup()
 dap.listeners.before.attach.dapui_config = function()

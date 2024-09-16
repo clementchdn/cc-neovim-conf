@@ -29,15 +29,23 @@ vim.diagnostic.config({
 	},
 })
 
--- local lua_opts = lsp_zero.nvim_lua_ls()
--- require("lspconfig").lua_ls.setup(lua_opts)
+require("lspconfig").lua_ls.setup({
+	settings = {
+		Lua = {
+			workspace = {
+				userThirdParty = { "/home/spring/LuaAddons" },
+				library = { "/home/spring/LuaAddons/xmake-luals-addon/library" },
+			},
+		},
+	},
+})
 
 -- lsp_zero.preset("recommended")
 
 require("mason-lspconfig").setup({
 	ensure_installed = {
 		"gopls",
-		"tsserver",
+		"ts_ls",
 		"rust_analyzer",
 		"clangd",
 		"pylsp",
@@ -140,7 +148,7 @@ lsp_zero.configure("cssls", { settings = servers["cssls"] })
 
 -- volar
 local lspconfig = require("lspconfig")
-lspconfig.tsserver.setup({
+lspconfig.ts_ls.setup({
 	init_options = {
 		plugins = {
 			{
