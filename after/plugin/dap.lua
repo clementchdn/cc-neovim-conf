@@ -1,4 +1,6 @@
 local dap, dapui = require("dap"), require("dapui")
+
+dapui.setup()
 require("nvim-dap-repl-highlights").setup()
 -- require('dap-python').setup('/home/clement/MyWell/mywell-back/.venv/bin/python3.12')
 require("dap-go").setup()
