@@ -21,6 +21,7 @@ local plugins = {
 		priority = 1000,
 		opts = {},
 	},
+	{ "rose-pine/neovim", name = "rose-pine" },
 
 	"xiyaowong/transparent.nvim",
 
@@ -100,6 +101,7 @@ local plugins = {
 		"mfussenegger/nvim-dap",
 		dependencies = {
 			"rcarriga/nvim-dap-ui",
+			"theHamsta/nvim-dap-virtual-text",
 			"leoluz/nvim-dap-go",
 			"mfussenegger/nvim-dap-python",
 			"mxsdev/nvim-dap-vscode-js",
@@ -467,6 +469,29 @@ local plugins = {
 		config = true,
 		-- Uncomment next line if you want to follow only stable versions
 		-- version = "*"
+	},
+	-- cppman
+	{
+		"madskjeldgaard/cppman.nvim",
+		dependencies = { "MunifTanjim/nui.nvim" },
+
+		config = function()
+			local cppman = require("cppman")
+			cppman.setup()
+
+			-- Make a keymap to open the word under cursor in CPPman
+			vim.keymap.set("n", "<leader>cm", function()
+				cppman.open_cppman_for(vim.fn.expand("<cword>"))
+			end)
+
+			-- Open search box
+			vim.keymap.set("n", "<leader>cc", function()
+				cppman.input()
+			end)
+		end,
+	},
+	{
+		"lewis6991/gitsigns.nvim",
 	},
 }
 

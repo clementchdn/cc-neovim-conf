@@ -1,6 +1,7 @@
-local dap, dapui = require("dap"), require("dapui")
+local dap, dapui, dap_virtual_text = require("dap"), require("dapui"), require("nvim-dap-virtual-text")
 
 dapui.setup()
+dap_virtual_text.setup()
 require("nvim-dap-repl-highlights").setup()
 -- require('dap-python').setup('/home/clement/MyWell/mywell-back/.venv/bin/python3.12')
 require("dap-go").setup()
@@ -81,3 +82,5 @@ end)
 vim.keymap.set("n", "<Leader>dc", function()
 	dapui.close()
 end)
+
+vim.fn.sign_define("DapBreakpoint", { text = "🛑", texthl = "", linehl = "", numhl = "" })

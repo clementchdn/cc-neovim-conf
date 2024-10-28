@@ -94,6 +94,7 @@ local function on_lsp_attach(_, bufnr)
 	vim.keymap.set("n", "gt", function()
 		vim.lsp.buf.type_definition()
 	end, opts)
+	vim.keymap.set("n", "<leader>cs", "<cmd>ClangdSwitchSourceHeader<CR>")
 end
 
 local servers = {

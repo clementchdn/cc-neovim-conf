@@ -63,7 +63,7 @@ require("oil").setup({
 		["<C-t>"] = "actions.select_tab",
 		["<C-p>"] = "actions.preview",
 		["<C-c>"] = "actions.close",
-		["<C-l>"] = { "actions.refresh", opts = { vertical = true, split = "belowright" } },
+		["<M-l>"] = { "actions.refresh", opts = { vertical = true, split = "belowright" } },
 		["-"] = "actions.parent",
 		["_"] = "actions.open_cwd",
 		["`"] = "actions.cd",
@@ -88,8 +88,7 @@ require("oil").setup({
 	keymaps_help = {
 		border = "rounded",
 	},
-	-- Set to false to disable all of the above keymaps
-	use_default_keymaps = true,
+	use_default_keymaps = false,
 	view_options = {
 		-- Show files and directories that start with "."
 		show_hidden = true,
