@@ -1,71 +1,15 @@
 local plugins = {
-	{
-		"folke/noice.nvim",
-		dependencies = {
-			{
-				-- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
-				"MunifTanjim/nui.nvim",
-				-- OPTIONAL:
-				--   `nvim-notify` is only needed, if you want to  the notification view.
-				--   If not available, we  `mini` as the fallback
-				"rcarriga/nvim-notify",
-			},
-		},
-	},
-
-	"olimorris/onedarkpro.nvim",
-	{ "catppuccin/nvim", name = "catppuccin" },
-	{
-		"eldritch-theme/eldritch.nvim",
-		lazy = false,
-		priority = 1000,
-		opts = {},
-	},
-	{ "rose-pine/neovim", name = "rose-pine" },
-
-	"xiyaowong/transparent.nvim",
-
-	{
-		"nvim-telescope/telescope.nvim",
-		-- or                            , branch = '0.1.x',
-		dependencies = { { "nvim-lua/plenary.nvim" } },
-	},
-
-	{ "nvim-treesitter/nvim-treesitter", build = ":TSUpdate" },
+	-- unused themes
+	-- "olimorris/onedarkpro.nvim",
+	-- {
+	-- 	"eldritch-theme/eldritch.nvim",
+	-- 	lazy = false,
+	-- 	priority = 1000,
+	-- 	opts = {},
+	-- },
+	-- { "rose-pine/neovim", name = "rose-pine" },
 
 	"nvim-treesitter/playground",
-	"theprimeagen/harpoon",
-	"mbbill/undotree",
-	"tpope/vim-fugitive",
-	{
-		"akinsho/git-conflict.nvim",
-		version = "*",
-		config = function()
-			require("git-conflict").setup()
-		end,
-	},
-
-	{
-		"VonHeikemen/lsp-zero.nvim",
-		dependencies = {
-			-- LSP Support
-			{ "neovim/nvim-lspconfig", lazy = { format = { timeout_ms = 3000 } } },
-			{ "williamboman/mason.nvim" },
-			{ "williamboman/mason-lspconfig.nvim" },
-
-			-- Autocompletion
-			{ "hrsh7th/nvim-cmp" },
-			{ "hrsh7th/cmp-buffer" },
-			{ "hrsh7th/cmp-path" },
-			{ "saadparwaiz1/cmp_luasnip" },
-			{ "hrsh7th/cmp-nvim-lsp" },
-			{ "hrsh7th/cmp-nvim-lua" },
-
-			-- Snippets
-			{ "L3MON4D3/LuaSnip" },
-			{ "rafamadriz/friendly-snippets" },
-		},
-	},
 
 	{
 		"numToStr/Comment.nvim",
@@ -75,11 +19,6 @@ local plugins = {
 	},
 
 	"eandrju/cellular-automaton.nvim",
-
-	{
-		"kylechui/nvim-surround",
-		version = "*", -- Use for stability; omit to  `main` branch for the latest features
-	},
 
 	{
 		"iamcco/markdown-preview.nvim",
@@ -96,39 +35,6 @@ local plugins = {
             'nvim-tree/nvim-web-devicons', -- optional
         },
     }--]]
-	-- nvim-dap for debuggging
-	{
-		"mfussenegger/nvim-dap",
-		dependencies = {
-			"rcarriga/nvim-dap-ui",
-			"theHamsta/nvim-dap-virtual-text",
-			"leoluz/nvim-dap-go",
-			"mfussenegger/nvim-dap-python",
-			"mxsdev/nvim-dap-vscode-js",
-			"LiadOz/nvim-dap-repl-highlights",
-		},
-	},
-	{
-		"nvim-neotest/neotest",
-		dependencies = {
-			"nvim-neotest/nvim-nio",
-			"nvim-lua/plenary.nvim",
-			"antoinemadec/FixCursorHold.nvim",
-			"nvim-treesitter/nvim-treesitter",
-			"nvim-neotest/neotest-python",
-			"marilari88/neotest-vitest",
-			"alfaix/neotest-gtest",
-		},
-	},
-
-	{
-		"kdheepak/lazygit.nvim",
-		-- optional for floating window border decoration
-		dependencies = {
-			"nvim-lua/plenary.nvim",
-		},
-	},
-
 	{
 		"cameron-wags/rainbow_csv.nvim",
 		config = true,
@@ -149,14 +55,6 @@ local plugins = {
 		},
 	},
 
-	-- d to format code with prettier, black, etc
-	{
-		"stevearc/conform.nvim",
-		config = function()
-			require("conform").setup()
-		end,
-	},
-
 	-- color picker
 	{
 		"max397574/colortils.nvim",
@@ -165,13 +63,8 @@ local plugins = {
 			require("colortils").setup()
 		end,
 	},
-	{ "NvChad/nvim-colorizer.lua" },
 
 	-- UI
-	{
-		"nvim-lualine/lualine.nvim",
-		dependencies = { "nvim-tree/nvim-web-devicons", opt = true },
-	},
 
 	--  {
 	--   'nvimdev/dashboard-nvim',
@@ -183,9 +76,6 @@ local plugins = {
 	--   end,
 	--   dependencies = { 'nvim-tree/nvim-web-devicons' }
 	-- }
-
-	"christoomey/vim-tmux-navigator",
-
 	-- {
 	-- 	"zbirenbaum/copilot.lua",
 	-- 	cmd = "Copilot",
@@ -223,21 +113,10 @@ local plugins = {
 	-- 	-- See Commands section for default commands if you want to lazy load on them
 	-- },
 
-	"RRethy/vim-illuminate",
-
 	"nvim-pack/nvim-spectre",
-
-	"stevearc/oil.nvim",
-
-	"ggandor/leap.nvim",
-
-	"NStefan002/2048.nvim",
 
 	"ThePrimeagen/vim-be-good",
 
-	"ray-x/go.nvim",
-	"ray-x/guihua.lua", -- recommended if need floating window support
-	{ "mistricky/codesnap.nvim", build = "make" },
 	-- hardtime
 	{
 		"m4xshen/hardtime.nvim",
@@ -258,20 +137,6 @@ local plugins = {
 		config = function()
 			require("neoscroll").setup({})
 		end,
-	},
-	{
-		"aaronhallaert/advanced-git-search.nvim",
-		cmd = { "AdvancedGitSearch" },
-		dependencies = {
-			"nvim-telescope/telescope.nvim",
-			-- to show diff splits and open commits in browser
-			"tpope/vim-fugitive",
-			-- to open commits in browser with fugitive
-			"tpope/vim-rhubarb",
-			-- optional: to replace the diff from fugitive with diffview.nvim
-			-- (fugitive is still needed to open in browser)
-			-- "sindrets/diffview.nvim",
-		},
 	},
 	{
 		"doctorfree/cheatsheet.nvim",
@@ -457,19 +322,6 @@ local plugins = {
 			-- your config options here
 		},
 	},
-	{
-		"L3MON4D3/LuaSnip",
-		-- follow latest release.
-		version = "v2.*", -- Replace <CurrentMajor> by the latest released major (first number of latest release)
-		-- install jsregexp (optional!).
-		build = "make install_jsregexp",
-	},
-	{
-		"danymat/neogen",
-		config = true,
-		-- Uncomment next line if you want to follow only stable versions
-		-- version = "*"
-	},
 	-- cppman
 	{
 		"madskjeldgaard/cppman.nvim",
@@ -490,9 +342,39 @@ local plugins = {
 			end)
 		end,
 	},
-	{
-		"lewis6991/gitsigns.nvim",
-	},
 }
 
-require("lazy").setup(plugins, {})
+-- Bootstrap lazy.nvim
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not (vim.uv or vim.loop).fs_stat(lazypath) then
+	local lazyrepo = "https://github.com/folke/lazy.nvim.git"
+	local out = vim.fn.system({ "git", "clone", "--filter=blob:none", "--branch=stable", lazyrepo, lazypath })
+	if vim.v.shell_error ~= 0 then
+		vim.api.nvim_echo({
+			{ "Failed to clone lazy.nvim:\n", "ErrorMsg" },
+			{ out, "WarningMsg" },
+			{ "\nPress any key to exit..." },
+		}, true, {})
+		vim.fn.getchar()
+		os.exit(1)
+	end
+end
+vim.opt.rtp:prepend(lazypath)
+
+-- Make sure to setup `mapleader` and `maplocalleader` before
+-- loading lazy.nvim so that mappings are correct.
+-- This is also a good place to setup other settings (vim.opt)
+vim.g.mapleader = " "
+vim.g.maplocalleader = "\\"
+
+-- Setup lazy.nvim
+require("lazy").setup({
+	spec = {
+		{ import = "plugins" },
+	},
+	-- Configure any other settings here. See the documentation for more details.
+	-- colorscheme that will be used when installing plugins.
+	install = { colorscheme = { "habamax" } },
+	-- automatically check for plugin updates
+	checker = { enabled = true },
+})
