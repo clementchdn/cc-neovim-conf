@@ -29,11 +29,6 @@ require("noice").setup({
 		long_message_to_split = true,
 		inc_rename = true,
 	},
-	cmd_line = {
-		opts = {
-			position = "50%",
-		},
-	},
 	notify = {
 		-- Noice can be used as `vim.notify` so you can route any notification like other messages
 		-- Notification messages have their level and other properties set.
