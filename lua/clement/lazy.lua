@@ -1,13 +1,96 @@
 local plugins = {
-    -- unused themes
-    -- "olimorris/onedarkpro.nvim",
-    -- {
-    -- 	"eldritch-theme/eldritch.nvim",
-    -- 	lazy = false,
-    -- 	priority = 1000,
-    -- 	opts = {},
-    -- },
-    -- { "rose-pine/neovim", name = "rose-pine" },
+    {
+        "folke/noice.nvim",
+        dependencies = {
+            {
+                -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
+                "MunifTanjim/nui.nvim",
+                -- OPTIONAL:
+                --   `nvim-notify` is only needed, if you want to  the notification view.
+                --   If not available, we  `mini` as the fallback
+                "rcarriga/nvim-notify",
+            },
+        },
+    },
+
+    "olimorris/onedarkpro.nvim",
+    { "catppuccin/nvim",  name = "catppuccin" },
+    {
+        "eldritch-theme/eldritch.nvim",
+        lazy = false,
+        priority = 1000,
+        opts = {},
+    },
+    { "rose-pine/neovim", name = "rose-pine" },
+
+    "rebelot/kanagawa.nvim",
+
+    "xiyaowong/transparent.nvim",
+
+    {
+        "nvim-telescope/telescope.nvim",
+        -- or                            , branch = '0.1.x',
+        dependencies = { { "nvim-lua/plenary.nvim" } },
+    },
+
+    { "nvim-treesitter/nvim-treesitter", build = ":TSUpdate" },
+
+    "nvim-treesitter/playground",
+    "theprimeagen/harpoon",
+    "mbbill/undotree",
+    "tpope/vim-fugitive",
+    {
+        "akinsho/git-conflict.nvim",
+        version = "*",
+        config = function()
+            require("git-conflict").setup()
+        end,
+    },
+
+    {
+        "VonHeikemen/lsp-zero.nvim",
+        dependencies = {
+            -- LSP Support
+            { "neovim/nvim-lspconfig",            lazy = { format = { timeout_ms = 3000 } } },
+            { "williamboman/mason.nvim" },
+            { "williamboman/mason-lspconfig.nvim" },
+
+            -- Autocompletion
+            { "hrsh7th/nvim-cmp" },
+            { "hrsh7th/cmp-buffer" },
+            { "hrsh7th/cmp-path" },
+            { "saadparwaiz1/cmp_luasnip" },
+            { "hrsh7th/cmp-nvim-lsp" },
+            { "hrsh7th/cmp-nvim-lua" },
+
+            -- Snippets
+            { "L3MON4D3/LuaSnip" },
+            { "rafamadriz/friendly-snippets" },
+        },
+    },
+
+    {
+        "numToStr/Comment.nvim",
+        config = function()
+            require("Comment").setup()
+        end,
+    },
+
+    "eandrju/cellular-automaton.nvim",
+
+    {
+        "kylechui/nvim-surround",
+        version = "*", -- Use for stability; omit to  `main` branch for the latest features
+    },
+
+    {
+        "iamcco/markdown-preview.nvim",
+        build = "cd app && npm install",
+        init = function()
+            vim.g.mkdp_filetypes = { "markdown" }
+        end,
+        ft = { "markdown" },
+    },
 
     --[[ {
         'nvim-tree/nvim-tree.lua',
@@ -15,7 +98,82 @@ local plugins = {
             'nvim-tree/nvim-web-devicons', -- optional
         },
     }--]]
+    -- nvim-dap for debuggging
+    {
+        "mfussenegger/nvim-dap",
+        dependencies = {
+            "rcarriga/nvim-dap-ui",
+            "theHamsta/nvim-dap-virtual-text",
+            "leoluz/nvim-dap-go",
+            "mfussenegger/nvim-dap-python",
+            "mxsdev/nvim-dap-vscode-js",
+            "LiadOz/nvim-dap-repl-highlights",
+        },
+    },
+    {
+        "nvim-neotest/neotest",
+        dependencies = {
+            "nvim-neotest/nvim-nio",
+            "nvim-lua/plenary.nvim",
+            "antoinemadec/FixCursorHold.nvim",
+            "nvim-treesitter/nvim-treesitter",
+            "nvim-neotest/neotest-python",
+            "marilari88/neotest-vitest",
+            "alfaix/neotest-gtest",
+        },
+    },
+
+    {
+        "kdheepak/lazygit.nvim",
+        -- optional for floating window border decoration
+        dependencies = {
+            "nvim-lua/plenary.nvim",
+        },
+    },
+
+    {
+        "cameron-wags/rainbow_csv.nvim",
+        config = true,
+        ft = {
+            "csv",
+            "tsv",
+            "csv_semicolon",
+            "csv_whitespace",
+            "csv_pipe",
+            "rfc_csv",
+            "rfc_semicolon",
+        },
+        cmd = {
+            "RainbowDelim",
+            "RainbowDelimSimple",
+            "RainbowDelimQuoted",
+            "RainbowMultiDelim",
+        },
+    },
+
+    -- d to format code with prettier, black, etc
+    {
+        "stevearc/conform.nvim",
+        config = function()
+            require("conform").setup()
+        end,
+    },
+
+    -- color picker
+    {
+        "max397574/colortils.nvim",
+        cmd = "Colortils",
+        config = function()
+            require("colortils").setup()
+        end,
+    },
+    { "NvChad/nvim-colorizer.lua" },
+
     -- UI
+    {
+        "nvim-lualine/lualine.nvim",
+        dependencies = { "nvim-tree/nvim-web-devicons", opt = true },
+    },
 
     --  {
     --   'nvimdev/dashboard-nvim',
@@ -27,6 +185,9 @@ local plugins = {
     --   end,
     --   dependencies = { 'nvim-tree/nvim-web-devicons' }
     -- }
+
+    "christoomey/vim-tmux-navigator",
+
     -- {
     -- 	"zbirenbaum/copilot.lua",
     -- 	cmd = "Copilot",
@@ -64,8 +225,21 @@ local plugins = {
     -- 	-- See Commands section for default commands if you want to lazy load on them
     -- },
 
+    "RRethy/vim-illuminate",
+
+    "nvim-pack/nvim-spectre",
+
+    "stevearc/oil.nvim",
+
+    "ggandor/leap.nvim",
+
+    "NStefan002/2048.nvim",
+
     "ThePrimeagen/vim-be-good",
 
+    "ray-x/go.nvim",
+    "ray-x/guihua.lua", -- recommended if need floating window support
+    { "mistricky/codesnap.nvim", build = "make" },
     -- hardtime
     {
         "m4xshen/hardtime.nvim",
@@ -80,7 +254,27 @@ local plugins = {
             },
         },
     },
-
+    -- neoscroll for smooth ctrl-D and ctrl-U
+    {
+        "karb94/neoscroll.nvim",
+        config = function()
+            require("neoscroll").setup({})
+        end,
+    },
+    {
+        "aaronhallaert/advanced-git-search.nvim",
+        cmd = { "AdvancedGitSearch" },
+        dependencies = {
+            "nvim-telescope/telescope.nvim",
+            -- to show diff splits and open commits in browser
+            "tpope/vim-fugitive",
+            -- to open commits in browser with fugitive
+            "tpope/vim-rhubarb",
+            -- optional: to replace the diff from fugitive with diffview.nvim
+            -- (fugitive is still needed to open in browser)
+            -- "sindrets/diffview.nvim",
+        },
+    },
     {
         "doctorfree/cheatsheet.nvim",
         event = "VeryLazy",
@@ -194,7 +388,7 @@ local plugins = {
             },
         },
     },
-    { "Bilal2453/luvit-meta", lazy = true }, -- optional `vim.uv` typings
+    { "Bilal2453/luvit-meta",    lazy = true }, -- optional `vim.uv` typings
     -- {                                        -- optional completion source for require statements and module annotations
     --   "hrsh7th/nvim-cmp",
     --   opts = function(_, opts)
@@ -207,11 +401,76 @@ local plugins = {
     -- },
     -- Lua
     {
+        "folke/twilight.nvim",
+        opts = {
+            -- your configuration comes here
+            -- or leave it empty to use the default settings
+            -- refer to the configuration section below
+        },
+    },
+    {
+        "folke/zen-mode.nvim",
+        opts = {
+            plugins = {
+                twilight = { enabled = false },
+                tmux = { enables = true },
+            },
+            -- your configuration comes here
+            -- or leave it empty to use the default settings
+            -- refer to the configuration section below
+        },
+    },
+    {
+        "Mythos-404/xmake.nvim",
+        branch = "v2",
+        -- lazy = true,
+        -- event = "BufReadPost xmake.lua",
+        config = true,
+        dependencies = { "MunifTanjim/nui.nvim", "nvim-lua/plenary.nvim" },
+    },
+    {
+        "johmsalas/text-case.nvim",
+        dependencies = { "nvim-telescope/telescope.nvim" },
+        config = function()
+            require("textcase").setup({})
+            require("telescope").load_extension("textcase")
+        end,
+        -- keys = {
+        -- 	"ga", -- Default invocation prefix
+        -- 	{ "ga.", "<cmd>TextCaseOpenTelescope<CR>", mode = { "n", "x" }, desc = "Telescope" },
+        -- },
+        -- cmd = {
+        -- 	-- NOTE: The Subs command name can be customized via the option "substitude_command_name"
+        -- 	"Subs",
+        -- 	"TextCaseOpenTelescope",
+        -- 	"TextCaseOpenTelescopeQuickChange",
+        -- 	"TextCaseOpenTelescopeLSPChange",
+        -- 	"TextCaseStartReplacingCommand",
+        -- },
+        -- If you want to use the interactive feature of the `Subs` command right away, text-case.nvim
+        -- has to be loaded on startup. Otherwise, the interactive feature of the `Subs` will only be
+        -- available after the first executing of it or after a keymap of text-case.nvim has been used.
+        lazy = false,
+    },
+    {
         "Zeioth/dooku.nvim",
         event = "VeryLazy",
         opts = {
             -- your config options here
         },
+    },
+    {
+        "L3MON4D3/LuaSnip",
+        -- follow latest release.
+        version = "v2.*", -- Replace <CurrentMajor> by the latest released major (first number of latest release)
+        -- install jsregexp (optional!).
+        build = "make install_jsregexp",
+    },
+    {
+        "danymat/neogen",
+        config = true,
+        -- Uncomment next line if you want to follow only stable versions
+        -- version = "*"
     },
     -- cppman
     {
@@ -233,6 +492,27 @@ local plugins = {
             end)
         end,
     },
+    {
+        "lewis6991/gitsigns.nvim",
+    },
+    {
+        "m00qek/baleia.nvim",
+        branch = "linebreaks",
+        version = "*",
+        config = function()
+            vim.g.baleia = require("baleia").setup({ log = 'DEBUG' })
+
+            -- Command to colorize the current buffer
+            vim.api.nvim_create_user_command("BaleiaColorize", function()
+                vim.g.baleia.once(vim.api.nvim_get_current_buf())
+            end, { bang = true })
+
+            -- Command to show logs
+            vim.api.nvim_create_user_command("BaleiaLogs", vim.g.baleia.logger.show, { bang = true })
+        end,
+    },
+
+    { 'RaafatTurki/hex.nvim' }
 }
 
 -- Bootstrap lazy.nvim
