@@ -9,61 +9,12 @@ local plugins = {
 	-- },
 	-- { "rose-pine/neovim", name = "rose-pine" },
 
-	"nvim-treesitter/playground",
-
-	{
-		"numToStr/Comment.nvim",
-		config = function()
-			require("Comment").setup()
-		end,
-	},
-
-	"eandrju/cellular-automaton.nvim",
-
-	{
-		"iamcco/markdown-preview.nvim",
-		build = "cd app && npm install",
-		init = function()
-			vim.g.mkdp_filetypes = { "markdown" }
-		end,
-		ft = { "markdown" },
-	},
-
 	--[[ {
         'nvim-tree/nvim-tree.lua',
         dependencies = {
             'nvim-tree/nvim-web-devicons', -- optional
         },
     }--]]
-	{
-		"cameron-wags/rainbow_csv.nvim",
-		config = true,
-		ft = {
-			"csv",
-			"tsv",
-			"csv_semicolon",
-			"csv_whitespace",
-			"csv_pipe",
-			"rfc_csv",
-			"rfc_semicolon",
-		},
-		cmd = {
-			"RainbowDelim",
-			"RainbowDelimSimple",
-			"RainbowDelimQuoted",
-			"RainbowMultiDelim",
-		},
-	},
-
-	-- color picker
-	{
-		"max397574/colortils.nvim",
-		cmd = "Colortils",
-		config = function()
-			require("colortils").setup()
-		end,
-	},
-
 	-- UI
 
 	--  {
@@ -113,8 +64,6 @@ local plugins = {
 	-- 	-- See Commands section for default commands if you want to lazy load on them
 	-- },
 
-	"nvim-pack/nvim-spectre",
-
 	"ThePrimeagen/vim-be-good",
 
 	-- hardtime
@@ -131,13 +80,7 @@ local plugins = {
 			},
 		},
 	},
-	-- neoscroll for smooth ctrl-D and ctrl-U
-	{
-		"karb94/neoscroll.nvim",
-		config = function()
-			require("neoscroll").setup({})
-		end,
-	},
+
 	{
 		"doctorfree/cheatsheet.nvim",
 		event = "VeryLazy",
@@ -264,56 +207,12 @@ local plugins = {
 	-- },
 	-- Lua
 	{
-		"folke/twilight.nvim",
-		opts = {
-			-- your configuration comes here
-			-- or leave it empty to use the default settings
-			-- refer to the configuration section below
-		},
-	},
-	{
-		"folke/zen-mode.nvim",
-		opts = {
-			plugins = {
-				twilight = { enabled = false },
-				tmux = { enables = true },
-			},
-			-- your configuration comes here
-			-- or leave it empty to use the default settings
-			-- refer to the configuration section below
-		},
-	},
-	{
 		"Mythos-404/xmake.nvim",
 		branch = "v2",
 		lazy = true,
 		event = "BufReadPost xmake.lua",
 		config = true,
 		dependencies = { "MunifTanjim/nui.nvim", "nvim-lua/plenary.nvim" },
-	},
-	{
-		"johmsalas/text-case.nvim",
-		dependencies = { "nvim-telescope/telescope.nvim" },
-		config = function()
-			require("textcase").setup({})
-			require("telescope").load_extension("textcase")
-		end,
-		-- keys = {
-		-- 	"ga", -- Default invocation prefix
-		-- 	{ "ga.", "<cmd>TextCaseOpenTelescope<CR>", mode = { "n", "x" }, desc = "Telescope" },
-		-- },
-		-- cmd = {
-		-- 	-- NOTE: The Subs command name can be customized via the option "substitude_command_name"
-		-- 	"Subs",
-		-- 	"TextCaseOpenTelescope",
-		-- 	"TextCaseOpenTelescopeQuickChange",
-		-- 	"TextCaseOpenTelescopeLSPChange",
-		-- 	"TextCaseStartReplacingCommand",
-		-- },
-		-- If you want to use the interactive feature of the `Subs` command right away, text-case.nvim
-		-- has to be loaded on startup. Otherwise, the interactive feature of the `Subs` will only be
-		-- available after the first executing of it or after a keymap of text-case.nvim has been used.
-		lazy = false,
 	},
 	{
 		"Zeioth/dooku.nvim",
@@ -371,6 +270,11 @@ vim.g.maplocalleader = "\\"
 require("lazy").setup({
 	spec = {
 		{ import = "plugins" },
+		{ import = "plugins.UI" },
+		{ import = "plugins.debugger" },
+		{ import = "plugins.editor" },
+		{ import = "plugins.extras" },
+		{ import = "plugins.git" },
 	},
 	-- Configure any other settings here. See the documentation for more details.
 	-- colorscheme that will be used when installing plugins.
