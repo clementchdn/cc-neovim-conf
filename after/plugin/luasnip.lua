@@ -197,6 +197,11 @@ ls.add_snippets("cpp", {
 		i(2),
 		t({ "", "#endif" }),
 	}),
+    s("cout", {
+        t("std::cout << "),
+        i(1),
+        t(" << std::endl;")
+    })
 })
 
 -- https://github.com/garcia5/dotfiles/blob/master/files/nvim/lua/ag/snippets/typescript.lua
