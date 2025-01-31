@@ -75,3 +75,8 @@ function _G.toggle_number_mode()
 end
 
 vim.keymap.set("n", "<leader>tr", toggle_number_mode)
+
+-- insert space in normal mode
+vim.api.nvim_set_keymap('n', '<Leader>i', 'i <Esc>', { noremap = true, silent = true })
+-- append space in normal mode
+vim.api.nvim_set_keymap('n', '<Leader>a', 'a <Esc>', { noremap = true, silent = true })

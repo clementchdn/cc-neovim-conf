@@ -10,7 +10,7 @@ return {
 			tabline_suffix = "",
 		})
 
-		vim.keymap.set("n", "<leader>a", mark.toggle_file)
+		vim.keymap.set("n", "<leader>ha", mark.toggle_file)
 		vim.keymap.set("n", "<C-e>", ui.toggle_quick_menu)
 
 		vim.keymap.set("n", "<A-h>", function()
