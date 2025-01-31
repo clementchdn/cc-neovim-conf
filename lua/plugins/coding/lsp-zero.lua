@@ -54,8 +54,8 @@ return {
             settings = {
                 Lua = {
                     workspace = {
-                        userThirdParty = { "/home/spring/LuaAddons" },
-                        library = { "/home/spring/LuaAddons/xmake-luals-addon/library" },
+                        userThirdParty = { os.getenv("HOME") .. "/LuaAddons" },
+                        library = { os.getenv("HOME") .. "/LuaAddons/xmake-luals-addon/library" },
                     },
                     globals = { "vim" },
                 },
