@@ -33,7 +33,8 @@ local plugins = {
         dependencies = { { "nvim-lua/plenary.nvim" } },
     },
 
-    { "nvim-treesitter/nvim-treesitter", build = ":TSUpdate" },
+    { "nvim-treesitter/nvim-treesitter",        build = ":TSUpdate" },
+    { "nvim-treesitter/nvim-treesitter-context" },
 
     "nvim-treesitter/playground",
     "theprimeagen/harpoon",
@@ -239,7 +240,7 @@ local plugins = {
 
     "ray-x/go.nvim",
     "ray-x/guihua.lua", -- recommended if need floating window support
-    { "mistricky/codesnap.nvim", build = "make" },
+    { "mistricky/codesnap.nvim",  build = "make" },
     -- hardtime
     {
         "m4xshen/hardtime.nvim",
@@ -388,7 +389,7 @@ local plugins = {
             },
         },
     },
-    { "Bilal2453/luvit-meta",    lazy = true }, -- optional `vim.uv` typings
+    { "Bilal2453/luvit-meta", lazy = true }, -- optional `vim.uv` typings
     -- {                                        -- optional completion source for require statements and module annotations
     --   "hrsh7th/nvim-cmp",
     --   opts = function(_, opts)
