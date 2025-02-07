@@ -55,7 +55,7 @@ return {
                 Lua = {
                     workspace = {
                         userThirdParty = { os.getenv("HOME") .. "/LuaAddons" },
-                        library = { os.getenv("HOME") .. "/LuaAddons/xmake-luals-addon/library" },
+                        library = { vim.env.VIMRUNTIME, os.getenv("HOME") .. "/LuaAddons/xmake-luals-addon/library" },
                     },
                     globals = { "vim" },
                 },
