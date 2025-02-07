@@ -9,7 +9,7 @@ require("dap-go").setup()
 dap.adapters.cppdbg = {
     id = "cppdbg",
     type = "executable",
-    command = "/home/clement/cpptools/extension/debugAdapters/bin/OpenDebugAD7",
+    command = os.getenv("HOME") .. "/cpptools/extension/debugAdapters/bin/OpenDebugAD7",
 }
 
 -- dap.adapters.xmake = {
