@@ -1,7 +1,7 @@
 return {
     "nvim-lualine/lualine.nvim",
     dependencies = { "nvim-tree/nvim-web-devicons", "ThePrimeagen/harpoon", opt = true, },
-    config = function()
+    opts = function()
         local xmake_component = {
             function()
                 local xmake = require("xmake.project").info
@@ -19,8 +19,7 @@ return {
                 require("xmake.project._menu").init() -- Add the on-click ui
             end,
         }
-
-        require("lualine").setup({
+        return {
             options = {
                 icons_enabled = true,
                 theme = "auto",
@@ -77,6 +76,6 @@ return {
             winbar = {},
             inactive_winbar = {},
             extensions = {},
-        })
-    end,
+        }
+    end
 }
