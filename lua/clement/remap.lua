@@ -57,7 +57,7 @@ vim.keymap.set("n", "<leader>w", "<cmd>:w!<CR>")
 -- vim.keymap.set("n", "<leader>vpp", "<cmd>e ~/.dotfiles/nvim/.config/nvim/lua/clement/packer.lua<CR>");
 
 vim.keymap.set("n", "<leader><leader>", function()
-    vim.cmd("so")
+	vim.cmd("so")
 end)
 
 vim.keymap.set("t", "<Esc>", "<C-\\><C-n>")
@@ -69,14 +69,14 @@ vim.keymap.set("n", "<leader>da", "<cmd>NoiceDismiss<CR>", { desc = "Dismiss Noi
 
 -- toggle number mode
 function _G.toggle_number_mode()
-    local wo = vim.wo
-    wo.number = true
-    wo.relativenumber = not wo.relativenumber
+	local wo = vim.wo
+	wo.number = true
+	wo.relativenumber = not wo.relativenumber
 end
 
 vim.keymap.set("n", "<leader>tr", toggle_number_mode)
 
 -- insert space in normal mode
-vim.api.nvim_set_keymap('n', '<Leader>i', 'i <Esc>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "<Leader>i", "i <Esc>", { noremap = true, silent = true })
 -- append space in normal mode
-vim.api.nvim_set_keymap('n', '<Leader>a', 'a <Esc>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "<Leader>a", "a <Esc>", { noremap = true, silent = true })

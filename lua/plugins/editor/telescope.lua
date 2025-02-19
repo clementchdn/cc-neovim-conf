@@ -65,7 +65,9 @@ return {
 		require("telescope").load_extension("noice")
 		require("telescope").load_extension("advanced_git_search")
 		vim.keymap.set("n", "<leader>ph", "<CMD>Telescope advanced_git_search diff_commit_file<CR>")
-		vim.keymap.set("n", "<leader>pda", function() builtin.diagnostics({ bufnr = 0 }) end)
+		vim.keymap.set("n", "<leader>pda", function()
+			builtin.diagnostics({ bufnr = 0 })
+		end)
 		vim.keymap.set("n", "<leader>pdA", builtin.diagnostics)
 	end,
 }
