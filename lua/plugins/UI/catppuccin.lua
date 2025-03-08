@@ -40,7 +40,13 @@ return {
 			types = {},
 			operators = {},
 		},
-		color_overrides = {},
+		color_overrides = {
+			mocha = {
+				base = "#000000",
+				mantle = "#000000",
+				crust = "#000000",
+			},
+		},
 		-- custom_highlights = {},
 		integrations = {
 			cmp = true,
@@ -59,6 +65,16 @@ return {
 		},
 	},
 	config = function()
+		-- require("catppuccin").setup({
+		-- 	color_overrides = {
+		-- 		mocha = {
+		-- 			base = "#000000",
+		-- 			mantle = "#000000",
+		-- 			crust = "#000000",
+		-- 		},
+		-- 	},
+		-- })
+
 		-- setup must be called before loading
 		vim.cmd.colorscheme("catppuccin")
 

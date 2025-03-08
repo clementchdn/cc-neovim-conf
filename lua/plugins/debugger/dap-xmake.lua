@@ -10,6 +10,8 @@ return {
 	},
 	config = function()
 		local dap = require("dap")
+		local path = vim.fn.getcwd()
+		require("dap-python").setup(path .. "/.venv/bin/python")
 
 		dap.configurations.c = {
 			{
@@ -63,11 +65,11 @@ return {
 				},
 			},
 			{
-				name = "Launch " .. os.getenv("HOME") .. "/SPRINGV13.1.0.3/Spring/SPRINGCmd" .. " with args",
+				name = "Launch " .. os.getenv("HOME") .. "/SPRINGV13.1.0/Spring/SPRINGCmd" .. " with args",
 				type = "cppdbg",
 				request = "launch",
 				program = function()
-					return os.getenv("HOME") .. "/SPRINGV13.1.0.3/Spring/SPRINGCmd"
+					return os.getenv("HOME") .. "/SPRINGV13.1.0/Spring/SPRINGCmd"
 				end,
 				args = function()
 					return vim.split(vim.fn.input("Arguments: "), " ") -- Prompt for args
@@ -90,5 +92,33 @@ return {
 				},
 			},
 		}
+
+		dap.configurations.lua = {
+			{
+				type = "local-lua",
+				name = "Current file (local-lua-dbg, lua)",
+				request = "launch",
+				cwd = "${workspaceFolder}",
+				program = {
+					lua = "lua",
+					file = "${file}",
+				},
+				args = function()
+					return vim.split(vim.fn.input("Arguments: "), " ") -- Prompt for args
+				end,
+			},
+		}
+		-- dap.configurations.python = {
+		-- 	{
+		-- 		type = "python",
+		-- 		request = "launch",
+		-- 		name = "Launch file with args",
+		-- 		program = "${file}",
+		-- 		cwd = "${workspaceFolder}",
+		-- 		args = function()
+		-- 			return vim.split(vim.fn.input("Arguments: "), " ") -- Prompt for args
+		-- 		end,
+		-- 	},
+		-- }
 	end,
 }

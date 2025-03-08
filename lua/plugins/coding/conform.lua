@@ -16,6 +16,8 @@ return {
 				-- Conform will run multiple formatters sequentially
 				python = { "isort", "black" },
 				-- Use a sub-list to run only the first available formatter
+				css = { "prettierd", "prettier" },
+				scss = { "prettierd", "prettier" },
 				javascript = { "prettierd", "prettier" },
 				typescript = { "prettierd", "prettier" },
 				javascriptreact = { "prettierd", "prettier" },
@@ -46,13 +48,12 @@ return {
 		})
 
 		conform.formatters.black = {
-			prepend_args = { "--line-length=140" },
+			prepend_args = { "--line-length=100" },
 		}
 
 		vim.api.nvim_create_autocmd("BufWritePre", {
 			pattern = "*",
 			callback = function(args)
-				print("salut" .. args.buf)
 				conform.format({ bufnr = args.buf })
 			end,
 		})
