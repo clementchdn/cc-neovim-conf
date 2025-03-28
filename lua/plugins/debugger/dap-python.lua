@@ -1,9 +1,8 @@
 return {
-	"mfussenegger/nvim-dap",
+	"mfussenegger/nvim-dap-python",
 	dependencies = {
 		"rcarriga/nvim-dap-ui",
 		"theHamsta/nvim-dap-virtual-text",
-		"mfussenegger/nvim-dap-python",
 	},
 	config = function()
 		local path = vim.fn.getcwd()
@@ -17,6 +16,21 @@ return {
 			vim.fn.setpos(".", oldpos)
 			return test_name
 		end
+
+		table.insert(require("dap").configurations.python, {
+			name = "Current python file",
+			cwd = "${workspaceFolder}",
+			type = "python",
+			request = "launch",
+			program = "${file}",
+			env = {
+				ENVIRONMENT = "test",
+			},
+			args = function()
+				return vim.split(vim.fn.input("Arguments: "), " ") -- Prompt for args
+			end,
+			console = "integratedTerminal",
+		})
 
 		table.insert(require("dap").configurations.python, {
 			name = "Pytest: Current Module",

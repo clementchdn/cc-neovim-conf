@@ -29,6 +29,9 @@ return {
 				additional_vim_regex_highlighting = false,
 			},
 		})
+		require("treesitter-context").setup({
+			enable = false,
+		})
 		vim.keymap.set("n", "<leader>tsc", "<cmd>TSContextToggle<CR>", { silent = true })
 		local parser_configs = require("nvim-treesitter.parsers").get_parser_configs()
 

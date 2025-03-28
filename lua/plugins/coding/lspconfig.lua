@@ -135,6 +135,7 @@ return {
 		-- volar
 		local lspconfig = require("lspconfig")
 		lspconfig.ts_ls.setup({
+			on_attach = on_lsp_attach,
 			init_options = {
 				plugins = {
 					{
@@ -153,7 +154,18 @@ return {
 				},
 			},
 		})
+
+		local venv_path = os.getenv("VIRTUAL_ENV")
+		local py_path = nil
+		-- decide which python executable to use for mypy
+		if venv_path ~= nil then
+			py_path = venv_path .. "/bin/python3"
+		else
+			py_path = vim.g.python3_host_prog
+		end
+
 		lspconfig.pylsp.setup({
+			on_attach = on_lsp_attach,
 			settings = {
 				pylsp = {
 					plugins = {
@@ -173,6 +185,12 @@ return {
 						rope = {
 							enabled = true,
 						},
+						-- pylsp_mypy = {
+						-- 	enabled = true,
+						-- 	overrides = { "--python-executable", py_path, true },
+						-- 	report_progress = true,
+						-- 	live_mode = false,
+						-- },
 					},
 				},
 			},
@@ -254,7 +272,7 @@ return {
 		}
 
 		lspconfig.clangd.setup({
-			on_attach = on_attach,
+			on_attach = on_lsp_attach,
 			capabilities = cmp_nvim_lsp.default_capabilities(),
 			root_dir = function(fname)
 				local root_dir = lspconfig.util.root_pattern(unpack(clangd_root_files))(fname)

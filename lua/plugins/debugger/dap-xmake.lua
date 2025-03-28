@@ -56,13 +56,13 @@ return {
 						ignoreFailures = false,
 					},
 				},
-				logging = {
-					trace = true,
-					traceResponse = true,
-					engineLogging = true,
-					programOutput = true,
-					exceptions = true,
-				},
+				-- logging = {
+				-- 	-- trace = true,
+				-- 	-- traceResponse = true,
+				-- 	-- engineLogging = true,
+				-- 	programOutput = true,
+				-- 	exceptions = true,
+				-- },
 			},
 			{
 				name = "Launch " .. os.getenv("HOME") .. "/SPRINGV13.1.0/Spring/SPRINGCmd" .. " with args",
@@ -93,32 +93,30 @@ return {
 			},
 		}
 
-		dap.configurations.lua = {
-			{
-				type = "local-lua",
-				name = "Current file (local-lua-dbg, lua)",
-				request = "launch",
-				cwd = "${workspaceFolder}",
-				program = {
-					lua = "lua",
-					file = "${file}",
-				},
-				args = function()
-					return vim.split(vim.fn.input("Arguments: "), " ") -- Prompt for args
-				end,
-			},
-		}
-		-- dap.configurations.python = {
+		-- dap.configurations.lua = {
 		-- 	{
-		-- 		type = "python",
+		-- 		type = "local-lua",
+		-- 		name = "Current file (local-lua-dbg, lua)",
 		-- 		request = "launch",
-		-- 		name = "Launch file with args",
-		-- 		program = "${file}",
 		-- 		cwd = "${workspaceFolder}",
+		-- 		program = {
+		-- 			lua = "lua",
+		-- 			file = "${file}",
+		-- 		},
 		-- 		args = function()
 		-- 			return vim.split(vim.fn.input("Arguments: "), " ") -- Prompt for args
 		-- 		end,
 		-- 	},
 		-- }
+		-- table.insert(require("dap").configurations.python, {
+		-- 	type = "python",
+		-- 	request = "launch",
+		-- 	name = "Launch file with args",
+		-- 	program = "${file}",
+		-- 	cwd = "${workspaceFolder}",
+		-- 	args = function()
+		-- 		return vim.split(vim.fn.input("Arguments: "), " ") -- Prompt for args
+		-- 	end,
+		-- })
 	end,
 }
