@@ -197,17 +197,17 @@ return {
 		})
 
 		-- gopls
-		-- lspconfig.gopls.setup({
-		--     settings = {
-		--         gopls = {
-		--             analyses = {
-		--                 unusedparams = true,
-		--             },
-		--             staticcheck = true,
-		--             gofumpt = true,
-		--         },
-		--     },
-		-- })
+		lspconfig.gopls.setup({
+			settings = {
+				gopls = {
+					analyses = {
+						unusedparams = true,
+					},
+					staticcheck = true,
+					gofumpt = true,
+				},
+			},
+		})
 
 		local cmp_nvim_lsp = require("cmp_nvim_lsp")
 
