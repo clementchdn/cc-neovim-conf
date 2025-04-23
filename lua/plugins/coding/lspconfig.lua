@@ -198,6 +198,7 @@ return {
 
 		-- gopls
 		lspconfig.gopls.setup({
+			on_attach = on_lsp_attach,
 			settings = {
 				gopls = {
 					analyses = {

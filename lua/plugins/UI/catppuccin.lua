@@ -61,6 +61,7 @@ return {
 			dap = true,
 			dap_ui = true,
 			neotest = true,
+			gitgraph = true,
 			-- For more plugins integrations please scroll down (https://github.com/catppuccin/nvim#integrations)
 		},
 	},
@@ -80,5 +81,22 @@ return {
 
 		vim.api.nvim_set_hl(0, "Cursor", { fg = "#999999", bg = "#999999" })
 		vim.api.nvim_set_hl(0, "CursorReset", { fg = "white", bg = "white" })
+
+		local catppuccin = require("catppuccin.palettes").get_palette("mocha")
+
+		-- Commit Information Highlight Groups
+		vim.api.nvim_set_hl(0, "GitGraphHash", { fg = catppuccin.teal, bg = "NONE" })
+		vim.api.nvim_set_hl(0, "GitGraphTimestamp", { fg = catppuccin.peach, bg = "NONE" })
+		vim.api.nvim_set_hl(0, "GitGraphAuthor", { fg = catppuccin.green, bg = "NONE" })
+		vim.api.nvim_set_hl(0, "GitGraphBranchName", { fg = catppuccin.red, bg = "NONE" })
+		vim.api.nvim_set_hl(0, "GitGraphBranchTag", { fg = catppuccin.lavender, bg = "NONE" })
+		vim.api.nvim_set_hl(0, "GitGraphBranchMsg", { fg = catppuccin.text, bg = "NONE" })
+
+		-- Branch Colors Highlight Groups
+		vim.api.nvim_set_hl(0, "GitGraphBranch1", { fg = catppuccin.blue, bg = "NONE" })
+		vim.api.nvim_set_hl(0, "GitGraphBranch2", { fg = catppuccin.red, bg = "NONE" })
+		vim.api.nvim_set_hl(0, "GitGraphBranch3", { fg = catppuccin.green, bg = "NONE" })
+		vim.api.nvim_set_hl(0, "GitGraphBranch4", { fg = catppuccin.yellow, bg = "NONE" })
+		vim.api.nvim_set_hl(0, "GitGraphBranch5", { fg = catppuccin.pink, bg = "NONE" })
 	end,
 }
