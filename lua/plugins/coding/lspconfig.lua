@@ -53,6 +53,7 @@ return {
 		})
 
 		require("mason-lspconfig").setup({
+			automatic_enable = false,
 			ensure_installed = {
 				-- "gopls",
 				"ts_ls",
@@ -196,20 +197,6 @@ return {
 			},
 		})
 
-		-- gopls
-		lspconfig.gopls.setup({
-			on_attach = on_lsp_attach,
-			settings = {
-				gopls = {
-					analyses = {
-						unusedparams = true,
-					},
-					staticcheck = true,
-					gofumpt = true,
-				},
-			},
-		})
-
 		local cmp_nvim_lsp = require("cmp_nvim_lsp")
 
 		-- clangd
@@ -306,6 +293,26 @@ return {
 					description = "Toggle inlay hints",
 				},
 			},
+		})
+
+		-- gopls
+		lspconfig.gopls.setup({
+			on_attach = on_lsp_attach,
+			filetypes = { "go", "gomod", "gohtml" },
+			settings = {
+				gopls = {
+					analyses = {
+						unusedparams = true,
+					},
+					staticcheck = true,
+					gofumpt = true,
+				},
+			},
+		})
+
+		lspconfig.templ.setup({
+			on_attach = on_lsp_attach,
+			capabilities = cmp_nvim_lsp.default_capabilities(),
 		})
 
 		local luasnip = require("luasnip")
