@@ -114,6 +114,7 @@ return {
 		local lspconfig = require("lspconfig")
 		lspconfig.ts_ls.setup({
 			on_attach = on_lsp_attach,
+			filetypes = { "typescript", "javascript", "typescriptreact", "javascriptreact", "vue" },
 			init_options = {
 				plugins = {
 					{
