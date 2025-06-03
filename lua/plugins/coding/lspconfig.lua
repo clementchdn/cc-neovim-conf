@@ -53,7 +53,7 @@ return {
 		})
 
 		require("mason-lspconfig").setup({
-			automatic_enable = false,
+			automatic_enable = true,
 			ensure_installed = {
 				-- "gopls",
 				"ts_ls",
@@ -95,6 +95,8 @@ return {
 			-- vim.keymap.set("n", "<leader>vrr", function() vim.lsp.buf.references() end, opts)
 			vim.keymap.set("n", "<leader>vrn", function()
 				vim.lsp.buf.rename()
+				-- save all buffers after rename
+				vim.cmd("silent! wa")
 			end, opts)
 			vim.keymap.set("i", "<C-h>", function()
 				vim.lsp.buf.signature_help()
@@ -107,31 +109,6 @@ return {
 			end, opts)
 			vim.keymap.set("n", "<leader>cs", "<cmd>ClangdSwitchSourceHeader<CR>")
 		end
-
-		local servers = {
-			cssls = {
-				settings = {
-					css = {
-						validate = true,
-						lint = {
-							unknownAtRules = "ignore",
-						},
-					},
-					scss = {
-						validate = true,
-						lint = {
-							unknownAtRules = "ignore",
-						},
-					},
-					less = {
-						validate = true,
-						lint = {
-							unknownAtRules = "ignore",
-						},
-					},
-				},
-			},
-		}
 
 		-- volar
 		local lspconfig = require("lspconfig")
@@ -148,12 +125,27 @@ return {
 			},
 		})
 
-		lspconfig.volar.setup({
+		lspconfig.vue_ls.setup({
 			init_options = {
 				vue = {
 					hybridMode = false,
 				},
 			},
+		})
+
+		local base_on_attach = vim.lsp.config.eslint.on_attach
+		vim.lsp.config("eslint", {
+			on_attach = function(client, bufnr)
+				if not base_on_attach then
+					return
+				end
+
+				base_on_attach(client, bufnr)
+				vim.api.nvim_create_autocmd("BufWritePre", {
+					buffer = bufnr,
+					command = "LspEslintFixAll",
+				})
+			end,
 		})
 
 		local venv_path = os.getenv("VIRTUAL_ENV")

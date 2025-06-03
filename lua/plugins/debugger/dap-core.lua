@@ -94,6 +94,26 @@ return {
 			type = "executable",
 			command = os.getenv("HOME") .. "/cpptools/extension/debugAdapters/bin/OpenDebugAD7",
 		}
+
+		dap.adapters.php = {
+			type = "executable",
+			command = "node",
+			args = { os.getenv("HOME") .. "/vscode-php-debug/out/phpDebug.js" },
+		}
+
+		dap.configurations.php = {
+			{
+				type = "php",
+				request = "launch",
+				name = "Listen for Xdebug",
+				program = "${file}",
+				args = function()
+					return vim.split(vim.fn.input("Arguments: "), " ")
+				end,
+				port = 9003,
+			},
+		}
+
 		-- dap.adapters["local-lua"] = {
 		-- 	type = "executable",
 		-- 	command = "node",
