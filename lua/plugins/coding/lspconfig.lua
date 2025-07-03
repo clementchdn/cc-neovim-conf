@@ -39,6 +39,7 @@ return {
 				prefix = "",
 			},
 		})
+		local util = require("lspconfig.util")
 
 		require("lspconfig").lua_ls.setup({
 			settings = {
@@ -53,12 +54,11 @@ return {
 		})
 
 		require("mason-lspconfig").setup({
-			automatic_enable = true,
+			automatic_enable = false,
 			ensure_installed = {
-				-- "gopls",
-				"ts_ls",
+				"gopls",
 				"rust_analyzer",
-				"clangd",
+				-- "langd",
 				"pylsp",
 				"lemminx",
 			},
@@ -77,17 +77,11 @@ return {
 			vim.keymap.set("n", "<leader>vd", function()
 				vim.diagnostic.open_float()
 			end, opts)
-			vim.keymap.set("n", "[d", function()
-				vim.diagnostic.goto_next()
+			vim.keymap.set("n", "<leader>nd", function()
+				vim.diagnostic.jump({ diagnostic = vim.diagnostic.get_next() })
 			end, opts)
-			vim.keymap.set("n", "]d", function()
-				vim.diagnostic.goto_prev()
-			end, opts)
-			vim.keymap.set("n", "<leader>n", function()
-				vim.diagnostic.goto_next()
-			end, opts)
-			vim.keymap.set("n", "<leader>N", function()
-				vim.diagnostic.goto_prev()
+			vim.keymap.set("n", "<leader>Nd", function()
+				vim.diagnostic.jump({ diagnostic = vim.diagnostic.get_prev() })
 			end, opts)
 			vim.keymap.set("n", "<leader>vca", function()
 				vim.lsp.buf.code_action()
@@ -110,11 +104,15 @@ return {
 			vim.keymap.set("n", "<leader>cs", "<cmd>ClangdSwitchSourceHeader<CR>")
 		end
 
+		local cmp_nvim_lsp = require("cmp_nvim_lsp")
 		-- volar
 		local lspconfig = require("lspconfig")
 		lspconfig.ts_ls.setup({
+			root_dir = function(...)
+				return util.root_pattern("package.json")(...)
+			end,
 			on_attach = on_lsp_attach,
-			filetypes = { "typescript", "javascript", "typescriptreact", "javascriptreact", "vue" },
+			capabilities = cmp_nvim_lsp.default_capabilities(),
 			init_options = {
 				plugins = {
 					{
@@ -142,6 +140,7 @@ return {
 				end
 
 				base_on_attach(client, bufnr)
+				on_lsp_attach(client, bufnr)
 				vim.api.nvim_create_autocmd("BufWritePre", {
 					buffer = bufnr,
 					command = "LspEslintFixAll",
@@ -190,11 +189,7 @@ return {
 			},
 		})
 
-		local cmp_nvim_lsp = require("cmp_nvim_lsp")
-
 		-- clangd
-
-		local util = require("lspconfig.util")
 
 		-- https://clangd.llvm.org/extensions.html#switch-between-sourceheader
 		local function switch_source_header(bufnr)

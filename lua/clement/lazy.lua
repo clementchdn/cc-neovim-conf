@@ -557,4 +557,13 @@ require("lazy").setup({
 })
 
 -- it seems that nvim-surround.setup() must be called after loading other plugins for it to work
-require("nvim-surround").setup()
+require("nvim-surround").setup({
+	surrounds = {
+		["s"] = {
+			add = function()
+				vim.notify("salut")
+				return { { "{t('" }, { "')}" } }
+			end,
+		},
+	},
+})

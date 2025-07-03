@@ -50,7 +50,7 @@ return {
 	config = function()
 		local builtin = require("telescope.builtin")
 		vim.keymap.set("n", "<leader>pf", function()
-			builtin.find_files({ hidden = true, unrestricted = true })
+			builtin.find_files({ hidden = false, unrestricted = true })
 		end, {})
 		vim.keymap.set("n", "<leader>pr", function()
 			builtin.resume({ hidden = true, unrestricted = true })
