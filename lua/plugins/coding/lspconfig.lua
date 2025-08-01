@@ -89,8 +89,6 @@ return {
 			-- vim.keymap.set("n", "<leader>vrr", function() vim.lsp.buf.references() end, opts)
 			vim.keymap.set("n", "<leader>vrn", function()
 				vim.lsp.buf.rename()
-				-- save all buffers after rename
-				vim.cmd("silent! wa")
 			end, opts)
 			vim.keymap.set("i", "<C-h>", function()
 				vim.lsp.buf.signature_help()
@@ -124,7 +122,7 @@ return {
 			},
 		})
 
-		lspconfig.vue_ls.setup({
+		vim.lsp.config("vue_ls", {
 			init_options = {
 				vue = {
 					hybridMode = false,

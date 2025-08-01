@@ -32,7 +32,7 @@ return {
 		require("treesitter-context").setup({
 			enable = false,
 		})
-		vim.keymap.set("n", "<leader>tsc", "<cmd>TSContextToggle<CR>", { silent = true })
+		vim.keymap.set("n", "<leader>tsc", "<cmd>TSContext toggle<CR>", { silent = true })
 		local parser_configs = require("nvim-treesitter.parsers").get_parser_configs()
 
 		parser_configs.lua_patterns = {

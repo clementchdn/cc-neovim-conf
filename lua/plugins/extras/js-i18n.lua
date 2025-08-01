@@ -26,17 +26,5 @@ return {
 			end,
 			desc = "I18n - Sets the language. The set language is used for virtual text display and definition jumps.",
 		},
-		{
-			"<leader>trS",
-			-- Function to surround the word with specified characters
-			function()
-				vim.notify("salut")
-				-- Input mode mapping (normal mode)
-				-- vim.cmd("normal! ysiwi{t('" .. vim.fn.escape("')}", "'") .. "}")
-			end,
-
-			-- Add a keybinding to execute the surround function
-			desc = "I18n - Sets the language. The set language is used for virtual text display and definition jumps.",
-		},
 	},
 }

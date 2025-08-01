@@ -44,7 +44,7 @@ return {
 				lualine_b = { "branch", "diff", "diagnostics" },
 				lualine_c = { { "filename", path = 1 } },
 				lualine_w = { xmake_component },
-				lualine_x = { "encoding", "fileformat", "filetype" },
+				lualine_x = { require("weather.lualine").default_c(), "encoding", "fileformat", "filetype" },
 				lualine_y = { "progress" },
 				lualine_z = { "location" },
 			},

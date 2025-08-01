@@ -63,6 +63,7 @@ return {
 			builtin.lsp_workspace_symbols()
 		end)
 		vim.keymap.set("n", "<leader>vrr", builtin.lsp_references, {})
+		vim.keymap.set("n", "<leader>pm", builtin.marks, {})
 		vim.keymap.set("n", "gd", "<CMD>Telescope lsp_definitions<CR>")
 
 		require("telescope").load_extension("noice")
