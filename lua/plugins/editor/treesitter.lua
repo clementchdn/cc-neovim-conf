@@ -2,6 +2,8 @@ return {
 	"nvim-treesitter/nvim-treesitter",
 	build = ":TSUpdate",
 	dependencies = { "nvim-treesitter/nvim-treesitter-context" },
+	-- must be loaded after markview
+	priority = 10,
 	config = function()
 		require("nvim-treesitter.configs").setup({
 			-- A list of parser names, or "all" (the five listed parsers should always be installed)

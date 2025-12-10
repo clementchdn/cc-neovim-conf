@@ -14,4 +14,13 @@ return {
 		-- fill any relevant options here
 		reveal = true,
 	},
+	keys = {
+		{
+			"<leader>Ntt",
+			function()
+				vim.cmd("Neotree toggle")
+			end,
+			desc = "Toggle Neotree",
+		},
+	},
 }

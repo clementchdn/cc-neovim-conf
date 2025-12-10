@@ -7,7 +7,7 @@ return {
 		"nvim-treesitter/nvim-treesitter",
 		"nvim-neotest/neotest-python",
 		"marilari88/neotest-vitest",
-		{ "alfaix/neotest-gtest", opts = {} },
+		-- { "alfaix/neotest-gtest", opts = {} },
 	},
 	opts = {
 		output = {
@@ -106,7 +106,7 @@ return {
 			{
 				"<leader>td",
 				function()
-					require("neotest").run.run(test_args)
+					require("neotest").run.run()
 				end,
 				desc = "run closest test",
 			},
@@ -114,7 +114,7 @@ return {
 			{
 				"<leader>tm",
 				function()
-					require("neotest").summary.run_marked(test_args)
+					require("neotest").summary.run_marked()
 				end,
 				desc = "run marked (from summary)",
 			},
@@ -125,7 +125,7 @@ return {
 		require("neotest").setup({
 			adapters = {
 				require("neotest-python")({
-					-- Extra arguments for nvim-dap configuration
+					-- Extra arguments for nvim-dap configuation
 					-- See https://github.com/microsoft/debugpy/wiki/Debug-configuration-settings for values
 					dap = { justMyCode = false },
 					-- Command line arguments for runner
@@ -144,6 +144,12 @@ return {
 					-- instances for files containing a parametrize mark (default: false)
 					pytest_discover_instances = true,
 				}),
+				require("neotest-java")({
+					dap = { justMyCode = false },
+					runner = "maven",
+					-- optional java-specific config
+					-- default works fine
+				}),
 				-- require("neotest-gtest").setup({
 				-- 	debug_adapter = "cppdbg",
 				-- 	-- Add the path to your test executables if needed
@@ -151,10 +157,11 @@ return {
 				-- 		return vim.fn.getcwd() -- Change this if necessary
 				-- 	end,
 				-- }),
-				-- ["neotest-vitest"] = {
-				-- 	filter_dir = function(name)
-				-- 		return name ~= "node_modules"
-				-- 	end,
+				["neotest-vitest"] = {
+					filter_dir = function(name)
+						return name ~= "node_modules"
+					end,
+				},
 			},
 		})
 		-- },

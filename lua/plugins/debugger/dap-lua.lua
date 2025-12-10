@@ -7,7 +7,6 @@ return {
 	},
 	config = function()
 		local dap = require("dap")
-		vim.notify("salut")
 		dap.configurations.lua = {
 			{
 				type = "local-lua",

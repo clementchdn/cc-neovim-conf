@@ -1,6 +1,7 @@
 -- tailwind-tools.lua
 return {
 	"luckasRanarison/tailwind-tools.nvim",
+	enabled = false,
 	tag = "v0.3.2",
 	name = "tailwind-tools",
 	build = ":UpdateRemotePlugins",

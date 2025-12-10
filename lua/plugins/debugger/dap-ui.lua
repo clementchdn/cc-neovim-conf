@@ -1,13 +1,16 @@
 return {
 	"rcarriga/nvim-dap-ui",
+	dependencies = {
+		"mfussenegger/nvim-dap",
+	},
 	opts = {
 		layouts = {
 			{
 				elements = {
-					-- {
-					-- 	id = "scopes",
-					-- 	size = 0.25,
-					-- },
+					{
+						id = "scopes",
+						size = 0.25,
+					},
 					{
 						id = "breakpoints",
 						size = 0.30,
@@ -16,23 +19,23 @@ return {
 						id = "stacks",
 						size = 0.35,
 					},
-					{
-						id = "watches",
-						size = 0.35,
-					},
+					-- {
+					-- 	id = "watches",
+					-- 	size = 0.35,
+					-- },
 				},
 				position = "left",
 				size = 40,
 			},
 			{
 				elements = {
-					{
-						id = "repl",
-						size = 0.5,
-					},
+					-- {
+					-- 	id = "repl",
+					-- 	size = 0.5,
+					-- },
 					{
 						id = "console",
-						size = 0.5,
+						size = 1,
 					},
 				},
 				position = "top",

@@ -4,14 +4,12 @@ return {
 		"rcarriga/nvim-dap-ui",
 		"theHamsta/nvim-dap-virtual-text",
 		"leoluz/nvim-dap-go",
-		"mfussenegger/nvim-dap-python",
 		"mxsdev/nvim-dap-vscode-js",
 		"LiadOz/nvim-dap-repl-highlights",
 	},
 	config = function()
 		local dap = require("dap")
 		local path = vim.fn.getcwd()
-		require("dap-python").setup(path .. "/.venv/bin/python")
 
 		dap.configurations.c = {
 			{

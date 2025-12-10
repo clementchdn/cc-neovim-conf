@@ -50,13 +50,6 @@ return {
 				end,
 			},
 			{
-				"<Leader>ds",
-				function()
-					dap.close()
-					require("dapui").close()
-				end,
-			},
-			{
 				"<Leader>B",
 				function()
 					-- Prompt the user for input
@@ -65,6 +58,13 @@ return {
 					dap.toggle_breakpoint(condition)
 				end,
 				{ silent = true },
+			},
+			{
+				"<Leader>ds",
+				function()
+					dap.close()
+					require("dapui").close()
+				end,
 			},
 			{
 				"<Leader>lp",

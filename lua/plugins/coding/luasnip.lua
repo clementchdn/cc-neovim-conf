@@ -210,7 +210,7 @@ typedef CAbs{classname} C{ogclass};
 	-- https://github.com/garcia5/dotfiles/blob/master/files/nvim/lua/ag/snippets/typescript.lua
 	local ts_function_fmt = [[
 {doc}
-{async}{name}({params}): {ret} {{
+{async} function {name}({params}): {ret} {{
 	{body}
 }}
 ]]
@@ -228,7 +228,7 @@ typedef CAbs{classname} C{ogclass};
 				}),
 				t({ "", "/" }),
 			}, "$PARENT_INDENT *"),
-			async = c(2, { t("async "), t("") }),
+			async = c(2, { t("async"), t("") }),
 			name = i(3, "funcName"),
 			params = i(4),
 			ret = d(5, function(args)
@@ -257,6 +257,10 @@ typedef CAbs{classname} C{ogclass};
 	end
 
 	ls.add_snippets("typescript", {
+		s("function", ts_function_snippet()),
+		s("translate", ts_translation_snippet()),
+	})
+	ls.add_snippets("typescriptreact", {
 		s("function", ts_function_snippet()),
 		s("translate", ts_translation_snippet()),
 	})

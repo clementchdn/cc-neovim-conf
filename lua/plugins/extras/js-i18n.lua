@@ -1,5 +1,6 @@
 return {
 	"nabekou29/js-i18n.nvim",
+	-- enabled = false,
 	dependencies = {
 		"neovim/nvim-lspconfig",
 		"nvim-treesitter/nvim-treesitter",

@@ -26,8 +26,10 @@ return {
 				json = { "prettierd", "prettier" },
 				jsonc = { "prettierd", "prettier" },
 				html = { "prettierd", "prettier" },
+				-- nginx = { "nginxfmt" },
 				vue = { "prettierd", "prettier" },
 				xml = { "xmlformatter" },
+				sh = { "shfmt" },
 			},
 			format_on_save = {
 				timeout_ms = 1000,
@@ -47,6 +49,9 @@ return {
 				-- shfmt = {
 				--   prepend_args = { "-i", "2", "-ci" },
 				-- },
+				shfmt = {
+					prepend_args = { "-i", "4" },
+				},
 			},
 		})
 

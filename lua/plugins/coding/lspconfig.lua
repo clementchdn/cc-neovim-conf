@@ -39,9 +39,8 @@ return {
 				prefix = "",
 			},
 		})
-		local util = require("lspconfig.util")
 
-		require("lspconfig").lua_ls.setup({
+		vim.lsp.config("lua_ls", {
 			settings = {
 				Lua = {
 					workspace = {
@@ -58,9 +57,12 @@ return {
 			ensure_installed = {
 				"gopls",
 				"rust_analyzer",
-				-- "langd",
+				-- "clangd",
 				"pylsp",
 				"lemminx",
+				"eslint",
+				"ts_ls",
+				"tailwindcss",
 			},
 		})
 
@@ -104,10 +106,25 @@ return {
 
 		local cmp_nvim_lsp = require("cmp_nvim_lsp")
 		-- volar
-		local lspconfig = require("lspconfig")
-		lspconfig.ts_ls.setup({
-			root_dir = function(...)
-				return util.root_pattern("package.json")(...)
+		vim.lsp.config("ts_ls", {
+			root_dir = function(bufnr, on_dir)
+				-- The project root is where the LSP can be started from
+				-- As stated in the documentation above, this LSP supports monorepos and simple projects.
+				-- We select then from the project root, which is identified by the presence of a package
+				-- manager lock file.
+				local root_markers =
+					{ "package-lock.json", "tsconfig.json", "yarn.lock", "pnpm-lock.yaml", "bun.lockb", "bun.lock" }
+				-- Give the root markers equal priority by wrapping them in a table
+				root_markers = vim.fn.has("nvim-0.11.3") == 1 and { root_markers, { ".git" } }
+					or vim.list_extend(root_markers, { ".git" })
+				-- exclude deno
+				local deno_path = vim.fs.root(bufnr, { "deno.json", "deno.jsonc", "deno.lock" })
+				local project_root = vim.fs.root(bufnr, root_markers)
+				if deno_path and (not project_root or #deno_path >= #project_root) then
+					return
+				end
+				-- We fallback to the current working directory if no project root is found
+				on_dir(project_root or vim.fn.getcwd())
 			end,
 			on_attach = on_lsp_attach,
 			capabilities = cmp_nvim_lsp.default_capabilities(),
@@ -155,7 +172,7 @@ return {
 			py_path = vim.g.python3_host_prog
 		end
 
-		lspconfig.pylsp.setup({
+		vim.lsp.config("pylsp", {
 			on_attach = on_lsp_attach,
 			settings = {
 				pylsp = {
@@ -191,8 +208,8 @@ return {
 
 		-- https://clangd.llvm.org/extensions.html#switch-between-sourceheader
 		local function switch_source_header(bufnr)
-			bufnr = util.validate_bufnr(bufnr)
-			local clangd_client = util.get_active_client_by_name(bufnr, "clangd")
+			bufnr = vim.lsp.util.validate_bufnr(bufnr)
+			local clangd_client = vim.lsp.util.get_active_client_by_name(bufnr, "clangd")
 			local params = { uri = vim.uri_from_bufnr(bufnr) }
 			if clangd_client then
 				clangd_client.request("textDocument/switchSourceHeader", params, function(err, result)
@@ -229,7 +246,7 @@ return {
 		end
 
 		local function open_lua_file(bufnr)
-			bufnr = util.validate_bufnr(bufnr)
+			bufnr = vim.lsp.util.validate_bufnr(bufnr)
 			local current_buffer_path = vim.uri_from_bufnr(bufnr)
 			local found_lua_file = find_closest_lua_file(current_buffer_path)
 			vim.api.nvim_command("edit " .. vim.uri_to_fname("file://" .. found_lua_file))
@@ -245,11 +262,11 @@ return {
 			"configure.ac", -- AutoTools
 		}
 
-		lspconfig.clangd.setup({
+		vim.lsp.config("clangd", {
 			on_attach = on_lsp_attach,
 			capabilities = cmp_nvim_lsp.default_capabilities(),
 			root_dir = function(fname)
-				local root_dir = lspconfig.util.root_pattern(unpack(clangd_root_files))(fname)
+				local root_dir = vim.lsp.util.root_pattern(unpack(clangd_root_files))(fname)
 					or vim.fn.getcwd() .. "/.vscode"
 				return root_dir
 			end,
@@ -282,7 +299,7 @@ return {
 		})
 
 		-- gopls
-		lspconfig.gopls.setup({
+		vim.lsp.config("gopls", {
 			on_attach = on_lsp_attach,
 			filetypes = { "go", "gomod", "gohtml" },
 			settings = {
@@ -296,7 +313,7 @@ return {
 			},
 		})
 
-		lspconfig.templ.setup({
+		vim.lsp.config("templ", {
 			on_attach = on_lsp_attach,
 			capabilities = cmp_nvim_lsp.default_capabilities(),
 		})
@@ -382,6 +399,21 @@ return {
 					end
 				end, { "i", "s" }),
 			}),
+		})
+
+		vim.api.nvim_create_user_command("ToggleInlayHints", function()
+			vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
+		end, {})
+
+		vim.lsp.enable({
+			"lua_ls",
+			"ts_ls",
+			"eslint",
+			"vue_ls",
+			"gopls",
+			"pylsp",
+			"clangd",
+			"templ",
 		})
 	end,
 }
