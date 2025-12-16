@@ -57,7 +57,7 @@ return {
 			ensure_installed = {
 				"gopls",
 				"rust_analyzer",
-				-- "clangd",
+				"clangd",
 				"pylsp",
 				"lemminx",
 				"eslint",
@@ -252,30 +252,49 @@ return {
 			vim.api.nvim_command("edit " .. vim.uri_to_fname("file://" .. found_lua_file))
 		end
 
-		local clangd_root_files = {
-			"clang-format",
-			".clangd",
-			".clang-tidy",
-			".clang-format",
-			"compile_commands.json",
-			"compile_flags.txt",
-			"configure.ac", -- AutoTools
-		}
-
 		vim.lsp.config("clangd", {
-			on_attach = on_lsp_attach,
 			capabilities = cmp_nvim_lsp.default_capabilities(),
-			root_dir = function(fname)
-				local root_dir = vim.lsp.util.root_pattern(unpack(clangd_root_files))(fname)
-					or vim.fn.getcwd() .. "/.vscode"
-				return root_dir
+			filetypes = { "c", "cpp", "objc", "objcpp", "cuda" },
+			on_attach = on_lsp_attach,
+			capabilities = {
+				textDocument = {
+					completion = {
+						editsNearCursor = true,
+					},
+				},
+				offsetEncoding = { "utf-8", "utf-16" },
+			},
+			root_dir = function(bufnr, on_dir)
+				-- The project root is where the LSP can be started from
+				-- As stated in the documentation above, this LSP supports monorepos and simple projects.
+				-- We select then from the project root, which is identified by the presence of a package
+				-- manager lock file.
+				local root_markers = {
+					".clangd",
+					".clang-tidy",
+					".clang-format",
+					"compile_commands.json",
+					"compile_flags.txt",
+					"configure.ac", -- AutoTools
+				}
+				-- Give the root markers equal priority by wrapping them in a table
+				root_markers = vim.fn.has("nvim-0.11.3") == 1 and { root_markers, { ".git" } }
+					or vim.list_extend(root_markers, { ".git" })
+				local project_root = vim.fs.root(bufnr, root_markers)
+				-- We fallback to the current working directory if no project root is found
+				on_dir(project_root or vim.fn.getcwd())
 			end,
+			-- root_dir = function(fname)
+			-- 	return require("lspconfig").util.root_pattern()(fname)
+			-- 		or vim.fs.dirname(vim.fs.find(".git", { path = fname, upward = true })[1])
+			-- end,
 			cmd = {
 				"clangd",
 				-- "-style=file:clang-format",
 				-- "-style=file:" .. vim.fn.getcwd() .. "/clang-format",
 				"--offset-encoding=utf-16",
 			},
+			single_file_support = true,
 			commands = {
 				ClangdSwitchSourceHeader = {
 					function()

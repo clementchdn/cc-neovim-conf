@@ -7,7 +7,7 @@ return {
 		"nvim-treesitter/nvim-treesitter",
 		"nvim-neotest/neotest-python",
 		"marilari88/neotest-vitest",
-		-- { "alfaix/neotest-gtest", opts = {} },
+		{ "alfaix/neotest-gtest", opts = {} },
 	},
 	opts = {
 		output = {
