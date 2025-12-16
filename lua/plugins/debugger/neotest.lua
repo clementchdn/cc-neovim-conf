@@ -106,7 +106,15 @@ return {
 			{
 				"<leader>td",
 				function()
-					require("neotest").run.run()
+					local ft = vim.bo.filetype
+					if ft == "java" then
+						require("neotest").run.run()
+					else
+						require("neotest").run.run({
+							vim.fn.expand("%"),
+							strategy = "dap",
+						})
+					end
 				end,
 				desc = "run closest test",
 			},
@@ -122,6 +130,7 @@ return {
 		return keys
 	end,
 	config = function()
+		local lib = require("neotest.lib")
 		require("neotest").setup({
 			adapters = {
 				require("neotest-python")({
@@ -150,13 +159,14 @@ return {
 					-- optional java-specific config
 					-- default works fine
 				}),
-				-- require("neotest-gtest").setup({
-				-- 	debug_adapter = "cppdbg",
-				-- 	-- Add the path to your test executables if needed
-				-- 	discover_root = function()
-				-- 		return vim.fn.getcwd() -- Change this if necessary
-				-- 	end,
-				-- }),
+				require("neotest-gtest").setup({
+					debug_adapter = "cppdbg",
+					-- Add the path to your test executables if needed
+					root = lib.files.match_root_pattern("compile_commands.json", ".clangd", ".git"),
+					-- discover_root = function()
+					-- 	return vim.fn.getcwd() -- Change this if necessary
+					-- end,
+				}),
 				["neotest-vitest"] = {
 					filter_dir = function(name)
 						return name ~= "node_modules"
