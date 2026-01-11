@@ -1,3 +1,16 @@
+local function find_jdt_core_jar()
+	local mason = vim.fn.stdpath("data") .. "/mason/packages/jdtls/plugins/"
+	local jars = vim.fn.glob(mason .. "org.eclipse.jdt.core_*.jar", true, true)
+
+	if #jars == 0 then
+		return nil
+	end
+
+	return jars[1]
+end
+
+local jdt_core_jar = find_jdt_core_jar()
+
 return {
 	"stevearc/conform.nvim",
 	config = function()
@@ -19,6 +32,7 @@ return {
 				go = { "gopls" },
 				css = { "prettierd", "prettier" },
 				scss = { "prettierd", "prettier" },
+				java = { "lsp_format" },
 				javascript = { "prettierd", "prettier" },
 				typescript = { "prettierd", "prettier" },
 				javascriptreact = { "prettierd", "prettier" },

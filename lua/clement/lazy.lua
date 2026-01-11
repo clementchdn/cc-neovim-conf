@@ -320,7 +320,6 @@ local plugins = {
 			vim.g.netrw_nogx = 1 -- disable netrw gx
 		end,
 		dependencies = { "nvim-lua/plenary.nvim" },
-		config = true, -- default settings
 		submodules = false, -- not needed, submodules are required only for tests
 
 		-- you can specify also another config if you want
@@ -359,21 +358,21 @@ local plugins = {
 				},
 				handler_options = {
 					search_engine = "google", -- you can select between google, bing, duckduckgo, ecosia and yandex
-					search_engine = "https://search.brave.com/search?q=", -- or you can pass in a custom search engine
+					-- search_engine = "https://search.brave.com/search?q=", -- or you can pass in a custom search engine
 					select_for_search = false, -- if your cursor is e.g. on a link, the pattern for the link AND for the word will always match. This disables this behaviour for default so that the link is opened without the select option for the word AND link
 
 					git_remotes = { "upstream", "origin" }, -- list of git remotes to search for git issue linking, in priority
-					git_remotes = function(fname) -- you can also pass in a function
-						if fname:match("myproject") then
-							return { "mygit" }
-						end
-						return { "upstream", "origin" }
-					end,
+					-- git_remotes = function(fname) -- you can also pass in a function
+					-- 	if fname:match("myproject") then
+					-- 		return { "mygit" }
+					-- 	end
+					-- 	return { "upstream", "origin" }
+					-- end,
 
 					git_remote_push = false, -- use the push url for git issue linking,
-					git_remote_push = function(fname) -- you can also pass in a function
-						return fname:match("myproject")
-					end,
+					-- git_remote_push = function(fname) -- you can also pass in a function
+					-- 	return fname:match("myproject")
+					-- end,
 				},
 			})
 		end,

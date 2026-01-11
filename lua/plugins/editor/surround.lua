@@ -17,6 +17,5 @@ return {
 		-- so in theory, `gs` could be useful for Leap too...
 		vim.keymap.set("x", "gs", "<Plug>VSurround")
 		vim.keymap.set("x", "gS", "<Plug>VgSurround")
-		vim.notify("surrouuund")
 	end,
 }

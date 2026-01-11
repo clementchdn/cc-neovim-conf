@@ -60,7 +60,7 @@ return {
 			builtin.grep_string({ search = vim.fn.input("Grep > ") })
 		end)
 		vim.keymap.set("n", "<leader>pS", function()
-			builtin.lsp_workspace_symbols({ hidden = false, unrestricted = true })
+			builtin.lsp_dynamic_workspace_symbols({ hidden = false, unrestricted = true })
 		end)
 		vim.keymap.set("n", "<leader>vrr", builtin.lsp_references, {})
 		vim.keymap.set("n", "<leader>pm", builtin.marks, {})

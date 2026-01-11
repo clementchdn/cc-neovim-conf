@@ -52,7 +52,11 @@ local config = {
 				},
 			},
 			format = {
-				enabled = false,
+				enabled = true,
+				settings = {
+					url = os.getenv("HOME") .. "/eclipse-java-formatter.xml",
+					profile = "IntelliJ IDEA",
+				},
 			},
 		},
 	},
@@ -88,9 +92,7 @@ config.init_options = {
 	bundles = bundles,
 }
 
-require("jdtls").start_or_attach(config)
-
-local jdtls = require("jdtls")
+jdtls.start_or_attach(config)
 
 vim.api.nvim_create_user_command("OrganizeImports", function()
 	jdtls.organize_imports()
@@ -122,4 +124,24 @@ end, {})
 
 vim.api.nvim_create_user_command("TestMethod", function()
 	jdtls.test_nearest_method()
+end, {})
+
+local Job = require("plenary.job")
+
+vim.api.nvim_create_user_command("MvnPackage", function()
+	Job:new({
+		command = "mvn",
+		args = { "clean", "package", "-DskipTests" },
+		cwd = vim.fn.getcwd(),
+
+		on_exit = function(job, return_val)
+			vim.schedule(function()
+				if return_val == 0 then
+					vim.notify("Maven build succeeded ✅", vim.log.levels.INFO, { title = "Maven" })
+				else
+					vim.notify("Maven build failed ❌", vim.log.levels.ERROR, { title = "Maven" })
+				end
+			end)
+		end,
+	}):start()
 end, {})

@@ -13,16 +13,16 @@ return {
 					},
 					{
 						id = "breakpoints",
-						size = 0.30,
+						size = 0.25,
 					},
 					{
 						id = "stacks",
-						size = 0.35,
+						size = 0.25,
 					},
-					-- {
-					-- 	id = "watches",
-					-- 	size = 0.35,
-					-- },
+					{
+						id = "watches",
+						size = 0.25,
+					},
 				},
 				position = "left",
 				size = 40,
@@ -38,7 +38,7 @@ return {
 						size = 1,
 					},
 				},
-				position = "top",
+				position = "bottom",
 				size = 10,
 			},
 		},
