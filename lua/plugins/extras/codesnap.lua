@@ -17,7 +17,7 @@ return {
 			has_breadcrumbs = true,
 			has_line_number = true,
 			code_font_family = "JetBrainsMono Nerd Font",
-			save_path = "~/Pictures/CodeSnap",
+			save_path = os.getenv("HOME") .. "/Pictures/CodeSnap",
 			watermark = "",
 			-- watermark_font_family = "JetBrainsMono Nerd Font",
 		})
