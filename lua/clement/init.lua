@@ -86,3 +86,9 @@ local function rinex_cleanup()
 end
 
 vim.api.nvim_create_user_command("RinexCleanup", rinex_cleanup, { desc = "Clean RINEX blocks (configurable O/B, G/E)" })
+
+local C = require("catppuccin.palettes").get_palette(flavour)
+-- Make tabline background transparent
+vim.api.nvim_set_hl(0, "TabLine", { bg = "none" })
+vim.api.nvim_set_hl(0, "TabLineSel", { bg = "none", bold = true })
+vim.api.nvim_set_hl(0, "TabLineFill", { bg = "none" })

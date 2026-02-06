@@ -1,3 +1,6 @@
+local themes = require("clement.lualine_themes")
+vim.g.lualine_theme = vim.g.lualine_theme or "transparent"
+
 return {
 	"nvim-lualine/lualine.nvim",
 	dependencies = { "nvim-tree/nvim-web-devicons", "ThePrimeagen/harpoon", opt = true },
@@ -23,7 +26,8 @@ return {
 		return {
 			options = {
 				icons_enabled = true,
-				theme = "auto",
+				-- theme = vim.g.lualine_theme == "transparent" and themes.transparent_theme or themes.solid_theme,
+				theme = themes.transparent,
 				component_separators = { left = "", right = "" },
 				section_separators = { left = "", right = "" },
 				disabled_filetypes = {
@@ -67,16 +71,6 @@ return {
 				lualine_y = { "progress" },
 				lualine_z = { "location" },
 			},
-			-- inactive_sections = {
-			-- 	lualine_a = {},
-			-- 	lualine_b = {},
-			-- 	lualine_c = { "filename" },
-			-- 	lualine_x = { "location" },
-			-- 	lualine_y = {},
-			-- 	lualine_z = {
-			-- 		"location",
-			-- 	},
-			-- },
 			tabline = {
 				lualine_c = {
 					{ require("harpoon_files").lualine_component },
