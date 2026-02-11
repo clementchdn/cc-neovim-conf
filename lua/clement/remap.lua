@@ -79,3 +79,22 @@ vim.keymap.set("n", "<leader>tr", toggle_number_mode)
 vim.api.nvim_set_keymap("n", "<Leader>i", "i <Esc>", { noremap = true, silent = true })
 -- append space in normal mode
 vim.api.nvim_set_keymap("n", "<Leader>a", "a <Esc>", { noremap = true, silent = true })
+
+vim.api.nvim_create_autocmd("OptionSet", {
+	pattern = "diff",
+	callback = function()
+		if vim.wo.diff then
+			local buf = vim.api.nvim_get_current_buf()
+
+			vim.keymap.set("n", "<leader>hn", "]c", {
+				buffer = buf,
+				desc = "Next diff hunk",
+			})
+
+			vim.keymap.set("n", "<leader>hp", "[c", {
+				buffer = buf,
+				desc = "Previous diff hunk",
+			})
+		end
+	end,
+})

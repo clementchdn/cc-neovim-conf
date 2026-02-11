@@ -1,12 +1,12 @@
 local M = {}
 
-local C = require("catppuccin.palettes").get_palette(flavour)
+local C = require("catppuccin.palettes").get_palette("mocha")
 
 M.transparent = {
 	normal = {
 		a = { fg = C.mantle, bg = C.blue, gui = "bold" },
 		b = { fg = C.blue, bg = C.surface0 },
-		c = { bg = transparent_bg, fg = C.text },
+		c = { bg = "NONE", fg = C.text },
 	},
 	insert = {
 		a = { bg = C.green, fg = C.base, gui = "bold" },
@@ -31,9 +31,9 @@ M.transparent = {
 		b = { bg = C.surface0, fg = C.red },
 	},
 	inactive = {
-		a = { bg = transparent_bg, fg = C.blue },
-		b = { bg = transparent_bg, fg = C.surface1, gui = "bold" },
-		c = { bg = transparent_bg, fg = C.overlay0 },
+		a = { bg = "NONE", fg = C.blue },
+		b = { bg = "NONE", fg = C.surface1, gui = "bold" },
+		c = { bg = "NONE", fg = C.overlay0 },
 	},
 	tabline = {
 		a = { fg = "#89b4fa", bg = "NONE", gui = "bold" },

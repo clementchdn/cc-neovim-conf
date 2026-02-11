@@ -32,6 +32,8 @@ return {
 				"NeoTreeNormal",
 				"NeoTreeNormalNC",
 				"NormalFloat",
+				"TreesitterContext",
+				"TreesitterContextLineNumber",
 			},
 			-- table: additional groups that should be cleared
 			-- table: groups you don't want to clear
